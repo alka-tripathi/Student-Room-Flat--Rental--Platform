@@ -1,0 +1,156 @@
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Outfit', sans-serif;
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+#root {
+  height: 100%;
+}
+
+.container {
+  display: flex;
+  min-height: 100vh;
+  overflow: hidden;
+  font-family: sans-serif;
+}
+
+/*left container*/
+.left-part {
+  width: 50%;
+  position: relative;
+  background-image: url("https://i.pinimg.com/736x/9e/fc/aa/9efcaa6580ba6be8901114c1d8b7a701.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+/* .left-content {
+  position: relative;
+  z-index: 1;
+  color: white;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 60px;
+} */
+ .left-content {
+  position: relative;
+  z-index: 1;
+  color: white;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 60px;
+}
+
+
+.left-content h1 {
+  font-size: 3.5rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.left-content p {
+  margin-top: 1.5rem;
+  font-size: 1.125rem;
+  max-width: 20rem;
+  color: #e0e0e0;
+}
+
+/*right container*/
+.right-part {
+  width: 50%;
+  background: linear-gradient(to bottom right, #eee6db, #dde3e0);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-container {
+  width: 420px;
+}
+
+.login-container h2 {
+  font-size: 1.875rem;
+  font-weight: 600;
+  margin-bottom: 2.5rem;
+  text-align: center;
+  color: #333;
+}
+
+.input-field {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1.5rem;
+  border: none;
+  border-bottom: 1px solid #ccc;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.input-field:focus {
+  border-color: #38b2ac; /* Teal color */
+}
+
+/*role selection style*/
+.role-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.role-button {
+  flex: 1;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  background: white;
+  color: #4a5568;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.role-button.active {
+  background-color: #38b2ac; 
+  color: white;
+  border-color: #38b2ac;
+}
+
+/* Login */
+.login-button {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #38b2ac; 
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s;
+}
+
+.login-button:hover {
+  background-color: #319795;
+}
+
+/* forget pass*/
+.forgot-password {
+  margin-top: 1.5rem;
+  font-size: 0.875rem;
+  color: #718096;
+  text-align: center;
+}
