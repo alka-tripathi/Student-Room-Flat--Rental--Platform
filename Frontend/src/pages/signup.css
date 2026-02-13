@@ -1,0 +1,139 @@
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Outfit', sans-serif;
+}
+
+html,body,#root{
+  height:100%;
+}
+
+/* layout */
+.container{
+  display:flex;
+  min-height:100vh;
+}
+
+/* left part*/
+.signup-left-part{
+  width:50%;
+  position:relative;
+  background-image:url("https://images.unsplash.com/photo-1560185127-6ed189bf02f4");
+  background-size:cover;
+  background-position:center;
+}
+
+.overlay{
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,0.45);
+}
+
+.left-content{
+  position:relative;
+  z-index:1;
+  color:white;
+  height:100%;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding-left:60px;
+}
+
+.left-content h1{
+  font-size:3.5rem;
+  font-weight:800;
+}
+
+.left-content p{
+  margin-top:1.5rem;
+  font-size:1.1rem;
+  max-width:320px;
+  color:#e2e2e2;
+}
+
+/*righ pART*/
+.right-part{
+  width:50%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:linear-gradient(to bottom right,#eee6db,#dde3e0);
+}
+
+.signup-container{
+  width:420px;
+}
+
+.signup-container h2{
+  text-align:center;
+  margin-bottom:2.5rem;
+  color:#333;
+}
+
+/*  taking input*/
+.input-field{
+  width:100%;
+  padding:0.8rem;
+  margin-bottom:1.4rem;
+  border:none;
+  border-bottom:1px solid #ccc;
+  outline:none;
+  transition:.3s;
+}
+
+.input-field:focus{
+  border-color:#38b2ac;
+}
+
+/* role selection */
+.role-buttons{
+  display:flex;
+  gap:1rem;
+  margin-bottom:2rem;
+}
+
+.role-button{
+  flex:1;
+  padding:0.55rem;
+  border:1px solid #ccc;
+  background:white;
+  cursor:pointer;
+  transition:.3s;
+}
+
+.role-button.active{
+  background:#38b2ac;
+  color:white;
+  border-color:#38b2ac;
+}
+
+/* button */
+.signup-button{
+  width:100%;
+  padding:0.75rem;
+  border:none;
+  background:#38b2ac;
+  color:white;
+  font-weight:600;
+  cursor:pointer;
+  transition:.3s;
+}
+
+.signup-button:hover{
+  background:#319795;
+}
+
+/* login*/
+.login-link{
+  text-align:center;
+  margin-top:1.5rem;
+  color:#666;
+}
+
+.login-link span{
+  color:#38b2ac;
+  cursor:pointer;
+  font-weight:600;
+}
