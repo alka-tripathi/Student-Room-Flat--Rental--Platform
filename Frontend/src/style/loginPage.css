@@ -1,0 +1,90 @@
+/* Full screen center */
+.login-container {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(to bottom right, #eee6db, #dde3e0);
+  font-family: sans-serif;
+}
+
+/* Card */
+.login-card {
+  width: 420px;
+  background: white;
+  padding: 40px;
+  border-radius: 14px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* Title */
+.login-title {
+  text-align: center;
+  font-size: 28px;
+  margin-bottom: 30px;
+  color: #111;
+}
+
+/* Input */
+.input-field {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #ccc;
+  padding: 12px 0;
+  margin-bottom: 25px;
+  outline: none;
+  font-size: 15px;
+}
+
+.input-field:focus {
+  border-bottom: 2px solid teal;
+}
+
+/* Roles */
+.role-container {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.role-btn {
+  flex: 1;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background: white;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.active-role {
+  background: teal;
+  color: white;
+  border-color: teal;
+}
+
+/* Login Button */
+.login-btn {
+  width: 100%;
+  padding: 12px;
+  background: teal;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.login-btn:hover {
+  background: #006d6d;
+}
+
+/* Footer */
+.forgot-text {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 14px;
+  color: gray;
+}

@@ -1,23 +1,38 @@
-
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Login from "./pages/login";
-import Signup from "./pages/signup";
+import { useState } from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import SignupPage from './pages/Signup';
+import Home from './pages/Home.jsx';
+import './App.css';
+import LoginPage from './pages/Login';
 
 function App() {
   return (
-    <BrowserRouter>
+    <div className="app-container">
       <Routes>
-        {}
-        <Route path="/" element={<Login />} />
-        <Route path="/login" element={<Login />} />
-       <Route path="/signup" element={<Signup />} />
+        <Route
+          path="/"
+          element={<Navigate to="/login"></Navigate>}
+        ></Route>
+        <Route
+          path="/home"
+          element={<Home></Home>}
+        ></Route>
+        <Route
+          path="/signup"
+          element={<SignupPage></SignupPage>}
+        ></Route>
 
+        <Route
+          path="/login"
+          element={<LoginPage></LoginPage>}
+        ></Route>
 
-        {}
-        <Route path="/owner/dashboard" element={<h1>Owner Dashboard</h1>} />
-        <Route path="/student/dashboard" element={<h1>Student Dashboard</h1>} />
+        <Route
+          path="*"
+          element={<LoginPage></LoginPage>}
+        ></Route>
       </Routes>
-    </BrowserRouter>
+    </div>
   );
 }
 
