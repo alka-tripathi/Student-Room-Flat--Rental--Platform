@@ -1,169 +1,99 @@
-/* RESET */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Outfit", sans-serif;
-}
-
-html,
-body,
-#root {
-  height: 100%;
-}
-
-/* MAIN CONTAINER */
+/* Full Page Centering */
 .container {
-  min-height: 100vh;
-  width: 100%;
-  display: flex;
-}
-
-/* LEFT PART */
-.signup-left-part {
-  width: 50%;
-  position: relative;
-  background-image: url("https://images.unsplash.com/photo-1560185127-6ed189bf02f4");
-  background-size: cover;
-  background-position: center;
-}
-
-.overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.45);
-}
-
-.left-content {
-  position: relative;
-  z-index: 1;
-  color: white;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding-left: 60px;
-}
-
-.left-content h1 {
-  font-size: 3.5rem;
-  font-weight: 800;
-}
-
-.left-content p {
-  margin-top: 1.5rem;
-  font-size: 1.1rem;
-  max-width: 320px;
-  color: #e2e2e2;
-}
-
-/* RIGHT PART */
-.right-part {
-  width: 50%;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(to bottom right, #eee6db, #dde3e0);
+  background: linear-gradient(135deg, #4e73df, #1cc88a);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.signup-container {
-  width: 420px;
+/* Card Style */
+.container > div {
+  background: #ffffff;
+  padding: 40px;
+  width: 400px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
 }
 
-.signup-container h2 {
+/* Heading */
+.container h1 {
   text-align: center;
-  margin-bottom: 2.5rem;
+  margin-bottom: 25px;
   color: #333;
 }
 
-/* INPUT FIELDS */
-.input-field {
-  width: 100%;
-  padding: 0.8rem;
-  margin-bottom: 1.4rem;
-  border: none;
-  border-bottom: 1px solid #ccc;
-  outline: none;
-  background: transparent;
-  transition: 0.3s;
-}
-
-.input-field:focus {
-  border-color: #38b2ac;
-}
-
-/* ROLE BUTTONS */
-.role-buttons {
+/* Form */
+form {
   display: flex;
-  gap: 1rem;
-  margin-bottom: 2rem;
+  flex-direction: column;
 }
 
-.role-button {
-  flex: 1;
-  padding: 0.55rem;
+/* Label */
+form label {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 5px;
+  color: #555;
+}
+
+/* Input Fields */
+form input {
+  padding: 10px;
+  margin-bottom: 18px;
+  border-radius: 6px;
   border: 1px solid #ccc;
-  background: white;
-  cursor: pointer;
-  transition: 0.3s;
+  font-size: 14px;
+  transition: 0.3s ease;
 }
 
-.role-button.active {
-  background: #38b2ac;
-  color: white;
-  border-color: #38b2ac;
+/* Input Focus Effect */
+form input:focus {
+  border-color: #4e73df;
+  outline: none;
+  box-shadow: 0 0 5px rgba(78, 115, 223, 0.4);
 }
 
-/* SIGNUP BUTTON */
-.signup-button {
-  width: 100%;
-  padding: 0.75rem;
+/* Signup Button */
+form button {
+  padding: 12px;
+  background-color: #4e73df;
   border: none;
-  background: #38b2ac;
+  border-radius: 6px;
   color: white;
-  font-weight: 600;
+  font-size: 16px;
+  font-weight: bold;
   cursor: pointer;
-  transition: 0.3s;
+  transition: 0.3s ease;
 }
 
-.signup-button:hover {
-  background: #319795;
+/* Button Hover */
+form button:hover {
+  background-color: #2e59d9;
 }
 
-/* LOGIN LINK */
-.login-link {
+/* Login Link */
+form span {
+  margin-top: 15px;
+  font-size: 14px;
   text-align: center;
-  margin-top: 1.5rem;
-  color: #666;
 }
 
-.login-link a {
-  color: #38b2ac;
-  font-weight: 600;
+form span a {
+  color: #4e73df;
   text-decoration: none;
+  font-weight: 600;
 }
 
-/* RESPONSIVE */
-@media (max-width: 900px) {
-  .container {
-    flex-direction: column;
-  }
+form span a:hover {
+  text-decoration: underline;
+}
 
-  .signup-left-part {
-    width: 100%;
-    height: 35vh;
-  }
-
-  .right-part {
-    width: 100%;
-    padding: 2rem 0;
-  }
-
-  .left-content {
-    padding-left: 30px;
-  }
-
-  .left-content h1 {
-    font-size: 2.2rem;
+/* Responsive */
+@media (max-width: 500px) {
+  .container > div {
+    width: 90%;
+    padding: 25px;
   }
 }

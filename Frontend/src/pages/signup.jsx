@@ -1,96 +1,106 @@
-// import { useState } from 'react';
-// import { Link, useNavigate } from 'react-router-dom';
-// import '../style/signup.css';
-
-// export default function SignupPage() {
-//   const [role, setRole] = useState('renter');
-//   const navigate = useNavigate();
-
-//   function handleSignup() {
-//     // after signup logic
-//     navigate('/login');
-//   }
-
-//   return (
-//     <div className="container">
-//       {/* LEFT PART */}
-//       <div className="signup-left-part">
-//         <div className="overlay">
-//           <div className="left-content">
-//             <h1>
-//               Find a place <br /> you'll love
-//             </h1>
-//             <p>
-//               Create your account and start exploring your perfect rental home
-//               today.
-//             </p>
-//           </div>
-//         </div>
-//       </div>
-
-//       {/* RIGHT PART */}
-//       <div className="right-part">
-//         <div className="signup-container">
-//           <h2>Sign Up</h2>
-
-//           <input
-//             type="email"
-//             placeholder="Email"
-//             className="input-field"
-//             name="email"
-//           />
-//           <input
-//             type="password"
-//             placeholder="Create Password"
-//             className="input-field"
-//             name="password"
-//           />
-//           <input
-//             type="password"
-//             placeholder="Confirm Password"
-//             className="input-field"
-//             name="confirm-password"
-//           />
-
-//           {/* ROLE SELECTION */}
-//           <div className="role-buttons">
-//             <button
-//               className={`role-button ${role === 'renter' ? 'active' : ''}`}
-//               onClick={() => setRole('renter')}
-//             >
-//               Renter
-//             </button>
-
-//             <button
-//               className={`role-button ${role === 'owner' ? 'active' : ''}`}
-//               onClick={() => setRole('owner')}
-//             >
-//               Owner
-//             </button>
-//           </div>
-
-//           <button
-//             className="signup-button"
-//             onClick={handleSignup}
-//           >
-//             Create Account
-//           </button>
-
-//           <p className="login-link">
-//             Already have an account? <Link to="/login">Login</Link>
-//           </p>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
-import React from 'react';
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import '../style/signup.css';
+import { handleError, handleSuccess } from '../utils';
 
 function Signup() {
+  const [signupInfo, setsignup] = useState({
+    name: '',
+    email: '',
+    password: '',
+  });
+
+  const navigate = useNavigate();
+  const handleSignup = async (e) => {
+    e.preventDefault();
+    const { name, email, password } = signupInfo;
+    if (!name || !email || !password) {
+      return handleError('All Field is required !!');
+    }
+    try {
+      const url = 'http://localhost:8000/auth/signup'; //Ye backend server ka URL hai.
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(signupInfo),
+      });
+      const result = await response.json();
+      const { success, message, error } = result;
+      if (success) {
+        handleSuccess(message);
+        setTimeout(() => {
+          navigate('/login');
+        }, 1000);
+      } else if (error?.details?.length > 0) {
+        const details = error.details[0];
+        handleError(details);
+      } else if (!success) {
+        handleError(message);
+      }
+      console.log(result);
+    } catch (err) {
+      handleError(message || 'Signup failed');
+    }
+  };
+  // console.log('Error block running');
+  // handleError('Testing error toast');
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    console.log(name, value);
+    const copysignup = { ...signupInfo };
+    copysignup[name] = value;
+    setsignup(copysignup);
+  };
+  console.log('login info:', signupInfo);
+
   return (
-    <div>
-      <h1>Signup page</h1>
+    <div className="container">
+      <div>
+        <h1>Signup</h1>
+        <form onSubmit={handleSignup}>
+          <div>
+            <label htmlFor="name">Name</label>
+            <input
+              onChange={handleChange}
+              type="text"
+              name="name"
+              autoFocus
+              placeholder="Enter your name.."
+            ></input>
+          </div>
+
+          <div>
+            <label htmlFor="email">Email</label>
+            <input
+              onChange={handleChange}
+              type="email"
+              name="email"
+              autoFocus
+              placeholder="Enter your email.."
+            ></input>
+          </div>
+
+          <div>
+            <label htmlFor="password">Password</label>
+            <input
+              onChange={handleChange}
+              type="password"
+              name="password"
+              placeholder="Enter your password.."
+            ></input>
+          </div>
+          <button type="submit">Signup</button>
+          <span>
+            Already have an account? <Link to="/login">Login</Link>
+          </span>
+        </form>
+        <ToastContainer></ToastContainer>
+      </div>
     </div>
   );
 }
