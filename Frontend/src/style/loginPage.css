@@ -1,61 +1,83 @@
+/* Reset */
+
+
+/* Card */
 .container {
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #f5f5f5;
-}
-
-.container > div {
+  width: 90%;
+  max-width: 400px;
+  padding: 30px;
+  border-radius: 10px;
   background-color: white;
-  padding: 25px;
-  width: 300px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
 }
 
-h1, h2 {
+/* Heading */
+h1 {
   text-align: center;
   margin-bottom: 20px;
+  color: #333;
 }
 
-form {
+/* Form layout */
+form div {
   display: flex;
   flex-direction: column;
+  margin-bottom: 15px;
 }
 
+/* Label */
 label {
   margin-bottom: 5px;
-  font-size: 14px;
+  font-weight: 500;
+  color: #444;
 }
 
+/* Input */
 input {
-  padding: 8px;
-  margin-bottom: 15px;
+  padding: 10px;
+  border-radius: 5px;
   border: 1px solid #ccc;
-  border-radius: 4px;
+  outline: none;
+  font-size: 14px;
+  transition: 0.3s ease;
 }
 
+input:focus {
+  border-color: #4a90e2;
+  box-shadow: 0 0 5px rgba(74, 144, 226, 0.3);
+}
+
+/* Button */
 button {
-  padding: 8px;
-  background-color: #333;
-  color: white;
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
   border: none;
-  border-radius: 4px;
+  background-color: #4a90e2;
+  color: white;
+  font-size: 16px;
   cursor: pointer;
+  transition: 0.3s ease;
 }
 
 button:hover {
-  background-color: #555;
+  background-color: #357abd;
 }
 
-span, p {
-  margin-top: 10px;
-  font-size: 14px;
+/* Bottom text */
+span {
+  display: block;
+  margin-top: 15px;
   text-align: center;
+  font-size: 14px;
 }
 
-a {
+span a {
+  color: #4a90e2;
   text-decoration: none;
-  color: blue;
+  font-weight: 500;
+}
+
+span a:hover {
+  text-decoration: underline;
 }

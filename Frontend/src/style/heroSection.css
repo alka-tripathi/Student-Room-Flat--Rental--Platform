@@ -1,0 +1,72 @@
+.hero-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+
+  padding: 60px 8%;
+  min-height: 80vh;
+
+  background: #f9fafc;
+}
+
+/* Left side - Image */
+.hero-container > :first-child {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+/* Right side - Text */
+.hero-container > :last-child {
+  flex: 1;
+}
+
+
+.hero-text {
+  position: relative;
+  max-width: 600px;
+}
+
+/* Main Heading */
+.hero-text h1 {
+  font-size: 3rem;
+  font-weight: 800;
+  line-height: 1.2;
+
+  background: linear-gradient(90deg, #4a90e2, #7b61ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  margin-bottom: 20px;
+}
+
+/* Sub Heading */
+.hero-text h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+/* Description */
+.hero-text h3 {
+  font-size: 1rem;
+  font-weight: 400;
+  color: #666;
+  line-height: 1.6;
+}
+
+/* Decorative background blur effect */
+.hero-text::before {
+  content: "";
+  position: absolute;
+  top: -40px;
+  left: -40px;
+  width: 150px;
+  height: 150px;
+  background: #7b61ff;
+  filter: blur(100px);
+  opacity: 0.3;
+  z-index: -1;
+}

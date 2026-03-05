@@ -42,11 +42,9 @@ function Signup() {
       }
       console.log(result);
     } catch (err) {
-      handleError(message || 'Signup failed');
+      handleError(err.message || 'Login  failed');
     }
   };
-  // console.log('Error block running');
-  // handleError('Testing error toast');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -60,47 +58,45 @@ function Signup() {
 
   return (
     <div className="container">
-      <div>
-        <h1>Signup</h1>
-        <form onSubmit={handleSignup}>
-          <div>
-            <label htmlFor="name">Name</label>
-            <input
-              onChange={handleChange}
-              type="text"
-              name="name"
-              autoFocus
-              placeholder="Enter your name.."
-            ></input>
-          </div>
+      <h1>Signup</h1>
+      <form onSubmit={handleSignup}>
+        <div>
+          <label htmlFor="name">Name</label>
+          <input
+            onChange={handleChange}
+            type="text"
+            name="name"
+            autoFocus
+            placeholder="Enter your name.."
+          ></input>
+        </div>
 
-          <div>
-            <label htmlFor="email">Email</label>
-            <input
-              onChange={handleChange}
-              type="email"
-              name="email"
-              autoFocus
-              placeholder="Enter your email.."
-            ></input>
-          </div>
+        <div>
+          <label htmlFor="email">Email</label>
+          <input
+            onChange={handleChange}
+            type="email"
+            name="email"
+            autoFocus
+            placeholder="Enter your email.."
+          ></input>
+        </div>
 
-          <div>
-            <label htmlFor="password">Password</label>
-            <input
-              onChange={handleChange}
-              type="password"
-              name="password"
-              placeholder="Enter your password.."
-            ></input>
-          </div>
-          <button type="submit">Signup</button>
-          <span>
-            Already have an account? <Link to="/login">Login</Link>
-          </span>
-        </form>
-        <ToastContainer></ToastContainer>
-      </div>
+        <div>
+          <label htmlFor="password">Password</label>
+          <input
+            onChange={handleChange}
+            type="password"
+            name="password"
+            placeholder="Enter your password.."
+          ></input>
+        </div>
+        <button type="submit">Signup</button>
+        <span>
+          Already have an account? <Link to="/login">Login</Link>
+        </span>
+      </form>
+      <ToastContainer></ToastContainer>
     </div>
   );
 }
