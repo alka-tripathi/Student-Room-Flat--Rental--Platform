@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../style/profileBtn.css';
+import PersonIcon from '@mui/icons-material/Person';
 
 function ProfileDropDown() {
   const [open, setOpen] = useState(false);
@@ -18,7 +19,9 @@ function ProfileDropDown() {
         className="profile-btn"
         onClick={() => setOpen(!open)}
       >
-        <span>👤</span>
+        <div>
+          <PersonIcon></PersonIcon>
+        </div>
         {localStorage.getItem('loggedInUser')}
       </button>
 

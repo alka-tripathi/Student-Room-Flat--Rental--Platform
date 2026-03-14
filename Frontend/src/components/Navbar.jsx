@@ -39,8 +39,7 @@ function Navbar() {
             />
             <button type="submit">Search</button>
           </form>
-
-          <li>
+          <li className="profile-btn">
             <ProfileDropDown></ProfileDropDown>
           </li>
         </ul>

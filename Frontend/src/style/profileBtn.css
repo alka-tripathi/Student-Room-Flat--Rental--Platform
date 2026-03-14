@@ -4,14 +4,13 @@
 }
 
 .profile-btn {
+  background-color: #0D3B66;
   display: flex;
   align-items: center;
   gap: 8px;
 
-  height: 40px;
-  padding: 0 15px;
-
-  background: #4a90e2;
+  height: 32px;
+  padding: 0 10px;
   color: white;
   border: none;
   border-radius: 20px;
@@ -21,11 +20,15 @@
   font-weight: 500;
 
   transition: 0.3s ease;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.profile-btn:hover {
-  background: #357abd;
+.profile-btn icon{
+  
 }
+
 
 .profile-dropdown {
   position: absolute;
@@ -48,6 +51,3 @@
   color: #333;
 }
 
-.profile-dropdown p:hover {
-  background: #f2f2f2;
-}

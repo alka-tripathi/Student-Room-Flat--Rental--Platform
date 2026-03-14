@@ -56,38 +56,40 @@ function Login() {
   };
 
   return (
-    <div className="container">
-      <h1>Login</h1>
-      <form onSubmit={handleLogin}>
-        <div>
-          <label htmlFor="email">Email</label>
-          <input
-            onChange={handleChange}
-            type="email"
-            name="email"
-            autoFocus
-            placeholder="Enter your email.."
-          />
-        </div>
+    <div className="body">
+      <div className="container">
+        <h1>Login</h1>
+        <form onSubmit={handleLogin}>
+          <div>
+            <label htmlFor="email">Email</label>
+            <input
+              onChange={handleChange}
+              type="email"
+              name="email"
+              autoFocus
+              placeholder="Enter your email.."
+            />
+          </div>
 
-        <div>
-          <label htmlFor="password">Password</label>
-          <input
-            onChange={handleChange}
-            type="password"
-            name="password"
-            placeholder="Enter your password.."
-          />
-        </div>
+          <div>
+            <label htmlFor="password">Password</label>
+            <input
+              onChange={handleChange}
+              type="password"
+              name="password"
+              placeholder="Enter your password.."
+            />
+          </div>
 
-        <button type="submit">Login</button>
+          <button type="submit">Login</button>
 
-        <span>
-          Don't have an account? <Link to="/signup">Signup</Link>
-        </span>
-      </form>
+          <span>
+            Don't have an account? <Link to="/signup">Signup</Link>
+          </span>
+        </form>
 
-      <ToastContainer />
+        <ToastContainer />
+      </div>
     </div>
   );
 }

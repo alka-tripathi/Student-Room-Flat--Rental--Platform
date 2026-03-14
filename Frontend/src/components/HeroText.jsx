@@ -1,5 +1,5 @@
 import React from 'react';
-import '../style/heroSection';
+import '../style/heroSection.css';
 
 function HeroText() {
   return (

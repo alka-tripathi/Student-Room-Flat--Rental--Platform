@@ -57,46 +57,48 @@ function Signup() {
   console.log('login info:', signupInfo);
 
   return (
-    <div className="container">
-      <h1>Signup</h1>
-      <form onSubmit={handleSignup}>
-        <div>
-          <label htmlFor="name">Name</label>
-          <input
-            onChange={handleChange}
-            type="text"
-            name="name"
-            autoFocus
-            placeholder="Enter your name.."
-          ></input>
-        </div>
+    <div className="body">
+      <div className="container">
+        <h1>Signup</h1>
+        <form onSubmit={handleSignup}>
+          <div>
+            <label htmlFor="name">Name</label>
+            <input
+              onChange={handleChange}
+              type="text"
+              name="name"
+              autoFocus
+              placeholder="Enter your name.."
+            ></input>
+          </div>
 
-        <div>
-          <label htmlFor="email">Email</label>
-          <input
-            onChange={handleChange}
-            type="email"
-            name="email"
-            autoFocus
-            placeholder="Enter your email.."
-          ></input>
-        </div>
+          <div>
+            <label htmlFor="email">Email</label>
+            <input
+              onChange={handleChange}
+              type="email"
+              name="email"
+              autoFocus
+              placeholder="Enter your email.."
+            ></input>
+          </div>
 
-        <div>
-          <label htmlFor="password">Password</label>
-          <input
-            onChange={handleChange}
-            type="password"
-            name="password"
-            placeholder="Enter your password.."
-          ></input>
-        </div>
-        <button type="submit">Signup</button>
-        <span>
-          Already have an account? <Link to="/login">Login</Link>
-        </span>
-      </form>
-      <ToastContainer></ToastContainer>
+          <div>
+            <label htmlFor="password">Password</label>
+            <input
+              onChange={handleChange}
+              type="password"
+              name="password"
+              placeholder="Enter your password.."
+            ></input>
+          </div>
+          <button type="submit">Signup</button>
+          <span>
+            Already have an account? <Link to="/login">Login</Link>
+          </span>
+        </form>
+        <ToastContainer></ToastContainer>
+      </div>
     </div>
   );
 }
