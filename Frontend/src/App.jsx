@@ -4,6 +4,7 @@ import SignupPage from './pages/Signup';
 import Home from './pages/Home.jsx';
 import './App.css';
 import LoginPage from './pages/Login';
+import NewRoom from './pages/NewRoom.jsx';
 
 function App() {
   return (
@@ -25,6 +26,11 @@ function App() {
         <Route
           path="/login"
           element={<LoginPage></LoginPage>}
+        ></Route>
+
+        <Route
+          path="/addroom"
+          element={<NewRoom></NewRoom>}
         ></Route>
 
         <Route

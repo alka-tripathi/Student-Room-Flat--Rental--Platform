@@ -1,16 +1,21 @@
-const Room = require('../Models/Room');
+const Room = require('../models/Room');
 
 const addRoom = async (req, res) => {
   try {
-    const room = new Room(req.body); //new object banega room ka
-    await room.save();
+    const newRoom = new Room({
+      ...req.body,
+      image: req.file ? req.file.filename : null,
+    });
+
+    const savedRoom = await newRoom.save();
 
     res.status(201).json({
       message: 'Room added successfully',
-      room,
+      room: savedRoom,
     });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ message: error.message });
   }
 };
+
 module.exports = addRoom;

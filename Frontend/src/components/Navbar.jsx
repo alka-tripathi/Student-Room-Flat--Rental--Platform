@@ -21,7 +21,7 @@ function Navbar() {
             <NavLink to="/">Home</NavLink>
           </li>
           <li>
-            <NavLink to="/addRome">Add Rome</NavLink>
+            <NavLink to="/addroom">Add Rome</NavLink>
           </li>
           <li>
             <NavLink to="/liked">Liked</NavLink>

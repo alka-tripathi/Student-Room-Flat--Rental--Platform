@@ -24,6 +24,16 @@ const RoomSchema = new mongoose.Schema({
     type: Boolean,
     default: true,
   },
+  images: {
+    type: [String],
+    required: true,
+    validate: {
+      validator: function (value) {
+        return value.length > 0; // at least 1 image required
+      },
+      message: 'At least one image is required',
+    },
+  },
   createdAt: {
     type: Date,
     default: Date.now,

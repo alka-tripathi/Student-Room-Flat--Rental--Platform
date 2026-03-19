@@ -7,6 +7,7 @@ const AuthRouter = require('./Routes/AuthRouter');
 require('dotenv').config();
 require('./Models/db');
 const RoomRouter = require('./Routes/RoomRoutes');
+app.use('/uploads', express.static('uploads'));
 
 const PORT = process.env.PORT || 5000;
 app.get('/ping', (req, res) => {

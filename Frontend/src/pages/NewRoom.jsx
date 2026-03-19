@@ -1,5 +1,4 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 function NewForm() {
   const [formInfo, setFormInfo] = useState({
@@ -7,7 +6,8 @@ function NewForm() {
     location: '',
     price: '',
     description: '',
-    contactNimber: '',
+    contactNumber: '',
+    image: null,
   });
 
   const handleChange = (e) => {
@@ -17,9 +17,49 @@ function NewForm() {
       [name]: value,
     });
   };
-  const handleSubmit = (e) => {
+
+  // 👇 handle image separately
+  const handleImageChange = (e) => {
+    setFormInfo({
+      ...formInfo,
+      image: e.target.files[0],
+    });
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formInfo);
+
+    const formData = new FormData();
+    formData.append('title', formInfo.title);
+    formData.append('location', formInfo.location);
+    formData.append('price', formInfo.price);
+    formData.append('description', formInfo.description);
+    formData.append('contactNumber', formInfo.contactNumber);
+    formData.append('image', formInfo.image);
+
+    try {
+      const res = await fetch('http://localhost:8000/room/addroom', {
+        method: 'POST',
+        body: formData,
+      });
+
+      const data = await res.json();
+      console.log(data);
+
+      alert('Room added successfully 🎉');
+
+      // reset form
+      setFormInfo({
+        title: '',
+        location: '',
+        price: '',
+        description: '',
+        contactNumber: '',
+        image: null,
+      });
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
@@ -79,6 +119,16 @@ function NewForm() {
             value={formInfo.contactNumber}
             onChange={handleChange}
             placeholder="Enter contact number"
+          />
+        </div>
+
+        {/* ✅ Image Upload */}
+        <div>
+          <label>Upload Image:</label>
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleImageChange}
           />
         </div>
 
