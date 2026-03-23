@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import '../style/newRoom.css';
+import { useNavigate } from 'react-router-dom';
 
 function NewForm() {
   const [formInfo, setFormInfo] = useState({
@@ -8,8 +9,10 @@ function NewForm() {
     price: '',
     description: '',
     contactNumber: '',
-    image: null,
+    images: [],
   });
+
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -23,7 +26,7 @@ function NewForm() {
   const handleImageChange = (e) => {
     setFormInfo({
       ...formInfo,
-      image: e.target.files[0],
+      images: Arrays.from(e.target.files),
     });
   };
 
@@ -36,7 +39,9 @@ function NewForm() {
     formData.append('price', formInfo.price);
     formData.append('description', formInfo.description);
     formData.append('contactNumber', formInfo.contactNumber);
-    formData.append('image', formInfo.image);
+    for (let i = 0; i < formInfo.images.length; i++) {
+      formData.append('images', formInfo.images[i]);
+    }
 
     try {
       const res = await fetch('http://localhost:8000/room/addroom', {
@@ -50,7 +55,7 @@ function NewForm() {
       alert('Room added successfully 🎉');
 
       //navigate to the home page
-      navigate('/');
+      navigate('/home');
 
       // reset form
       setFormInfo({
@@ -59,7 +64,7 @@ function NewForm() {
         price: '',
         description: '',
         contactNumber: '',
-        image: null,
+        image: [],
       });
     } catch (err) {
       console.error(err);
@@ -132,7 +137,9 @@ function NewForm() {
             <label>Upload Image:</label>
             <input
               type="file"
+              multiple
               accept="image/*"
+              name="images"
               onChange={handleImageChange}
             />
           </div>

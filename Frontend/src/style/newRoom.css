@@ -7,19 +7,18 @@
     background: #f4f6f9;
     margin: 0;
     font-family: Arial, sans-serif;
-    position: absolute;
+    position: relative;
 }
 
 /* Form container */
 .container {
-    width:60%;
+    width: 380px;
     background: #ffffff;
     padding: 25px 30px;
     border-radius: 12px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-    position: relative;
-    bottom: 60px;
-    
+    position: absolute;
+    top: 20px;
 }
 
 /* Heading */

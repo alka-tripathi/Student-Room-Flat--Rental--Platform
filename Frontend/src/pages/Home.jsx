@@ -8,11 +8,29 @@ import Cards from '../components/Cards';
 
 function Home() {
   const [loggedUser, setLoggedUser] = useState('');
+  const [rooms, setRooms] = useState([]);
 
   useEffect(() => {
     setLoggedUser(localStorage.getItem('loggedInUser'));
   }, []);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    setLoggedUser(localStorage.getItem('loggedInUser'));
+
+    // ✅ fetch rooms
+    const fetchRooms = async () => {
+      try {
+        const res = await fetch('http://localhost:8000/room/getrooms');
+        const data = await res.json();
+        setRooms(data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchRooms();
+  }, []);
 
   //delete the
   const logOut = (e) => {
@@ -34,7 +52,7 @@ function Home() {
       <HeroSection></HeroSection>
 
       {/* all room infomation */}
-      <Cards></Cards>
+      <Cards rooms={rooms}></Cards>
 
       <ToastContainer />
     </div>
