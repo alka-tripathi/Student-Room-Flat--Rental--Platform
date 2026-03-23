@@ -4,6 +4,7 @@ import { ToastContainer } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import HeroSection from '../components/HeroSection';
+import Cards from '../components/Cards';
 
 function Home() {
   const [loggedUser, setLoggedUser] = useState('');
@@ -31,6 +32,9 @@ function Home() {
 
       {/* hero section */}
       <HeroSection></HeroSection>
+
+      {/* all room infomation */}
+      <Cards></Cards>
 
       <ToastContainer />
     </div>
