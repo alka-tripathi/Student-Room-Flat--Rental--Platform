@@ -14,24 +14,75 @@ function NewForm() {
 
   const navigate = useNavigate();
 
+  // const handleChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setFormInfo({
+  //     ...formInfo,
+  //     images: Arrays.from(e.target.files),
+  //   });
+  // };
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormInfo({
       ...formInfo,
-      [name]: value,
+      [name]: value, // ✅ correct
     });
   };
 
   // 👇 handle image separately
   const handleImageChange = (e) => {
-    setFormInfo({
-      ...formInfo,
-      images: Arrays.from(e.target.files),
+    const newImages = Array.from(e.target.files);
+
+    setFormInfo((prev) => {
+      const allImages = [...prev.images, ...newImages];
+
+      //👉 remove duplicates (by name)
+      const uniqueImages = allImages.filter(
+        (file, index, self) =>
+          index === self.findIndex((f) => f.name === file.name),
+      );
+
+      return {
+        ...prev,
+        images: uniqueImages,
+      };
     });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!formInfo.title.trim()) {
+      alert('Title is required');
+      return;
+    }
+
+    if (formInfo.title.trim().length < 5) {
+      alert('Title must be at least 5 characters');
+      return;
+    }
+
+    if (!formInfo.location.trim()) {
+      alert('Location is required');
+      return;
+    }
+
+    if (!formInfo.price || formInfo.price <= 0) {
+      alert('Enter valid price');
+      return;
+    }
+
+    if (!formInfo.contactNumber.match(/^[6-9]\d{9}$/)) {
+      alert('Enter valid contact number');
+      return;
+    }
+
+    if (formInfo.images.length === 0) {
+      alert('Please upload at least one image');
+      return;
+    }
+
+    // ✅ SEND DATA
 
     const formData = new FormData();
     formData.append('title', formInfo.title);
@@ -67,6 +118,7 @@ function NewForm() {
         image: [],
       });
     } catch (err) {
+      alert('Room not added');
       console.error(err);
     }
   };
@@ -142,6 +194,10 @@ function NewForm() {
               name="images"
               onChange={handleImageChange}
             />
+            {/* ✅ Show count */}
+            {formInfo.images.length > 0 && (
+              <p>{formInfo.images.length} image(s) selected</p>
+            )}
           </div>
 
           <button type="submit">Add Room</button>
