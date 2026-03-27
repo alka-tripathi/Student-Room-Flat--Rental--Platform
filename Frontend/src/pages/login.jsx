@@ -56,39 +56,56 @@ function Login() {
   };
 
   return (
-    <div className="body">
-      <div className="container">
-        <h1>Login</h1>
-        <form onSubmit={handleLogin}>
-          <div>
-            <label htmlFor="email">Email</label>
-            <input
-              onChange={handleChange}
-              type="email"
-              name="email"
-              autoFocus
-              placeholder="Enter your email.."
-            />
-          </div>
+    <div className="login-page">
+      <div className="left-section">
+        <img
+          src="https://i.pinimg.com/1200x/2e/76/b7/2e76b7b352e21747439a3a0d6bec272c.jpg"
+          alt="login"
+        />
+      </div>
 
-          <div>
-            <label htmlFor="password">Password</label>
-            <input
-              onChange={handleChange}
-              type="password"
-              name="password"
-              placeholder="Enter your password.."
-            />
-          </div>
+      <div className="right-section">
+        <div className="container">
+          <h1 style={{ color: '#0D3B66' }}>Login</h1>
+          <form onSubmit={handleLogin}>
+            <div>
+              <label>Email</label>
+              <input
+                onChange={handleChange}
+                value={loginInfo.email}
+                type="email"
+                name="email"
+                placeholder="Enter your email.."
+                className="inputs"
+              />
+            </div>
 
-          <button type="submit">Login</button>
+            <div>
+              <label>Password</label>
+              <input
+                onChange={handleChange}
+                value={loginInfo.password}
+                type="password"
+                name="password"
+                placeholder="Enter your password.."
+                className="inputs"
+              />
+            </div>
 
-          <span>
-            Don't have an account? <Link to="/signup">Signup</Link>
-          </span>
-        </form>
+            <button
+              className="submit-btn"
+              type="submit"
+            >
+              Login
+            </button>
 
-        <ToastContainer />
+            <span className="login-text">
+              Don't have an account? <Link to="/signup">Signup</Link>
+            </span>
+          </form>
+
+          <ToastContainer />
+        </div>
       </div>
     </div>
   );

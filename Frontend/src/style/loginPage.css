@@ -1,95 +1,61 @@
-/* Reset */
-.body{
-  width: 100%;
-  height: 100%;
+/* MAIN LAYOUT */
+.login-page {
   display: flex;
-  justify-content: center;
-  
-  align-items: center;
-  margin: auto;
-  position: relative;
+  min-height: 100vh;
 }
 
-/* Card */
+/* LEFT SIDE (IMAGE) */
+.left-section {
+  flex: 1;
+}
+
+.left-section img {
+  width: 100%;
+  height: 70%;
+  object-fit: cover;
+}
+
+/* RIGHT SIDE (FORM AREA) */
+.right-section {
+  flex: 1;
+  display: flex;
+  justify-content: center;   /* horizontal center */
+  align-items: center;       /* vertical center */
+  background: #f8f9fa;
+}
+
+/* LOGIN BOX */
 .container {
-  width: 90%;
+  width: 80%;
   max-width: 400px;
   padding: 30px;
-  border-radius: 10px;
-  background-color: white;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-  position: absolute;
-  top: 10rem;
- 
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+  margin-top: 100px;
 }
 
-/* Heading */
-h1 {
-  text-align: center;
+/* INPUT STYLING (optional but nice) */
+ /* .inputs {
+  width: 100%;
+
+  margin-top: 5px;
   margin-bottom: 20px;
-  color: #333;
-}
+ 
+} */
 
-/* Form layout */
-form div {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 15px;
-}
-
-/* Label */
-label {
-  margin-bottom: 5px;
-  font-weight: 500;
-  color: #444;
-}
-
-/* Input */
-input {
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  outline: none;
-  font-size: 14px;
-  transition: 0.3s ease;
-}
-
-input:focus {
-  border-color: #4a90e2;
-  box-shadow: 0 0 5px rgba(74, 144, 226, 0.3);
-}
-
-/* Button */
-button {
+/* BUTTON */
+.submit-btn {
   width: 100%;
   padding: 10px;
-  border-radius: 5px;
-  border: none;
-  background-color: #4a90e2;
+  background-color: #0D3B66;
   color: white;
-  font-size: 16px;
-  cursor: pointer;
-  transition: 0.3s ease;
+  border: none;
+  border-radius: 5px;
+  margin-bottom: 6%;
 }
-
-button:hover {
-  background-color: #357abd;
-}
-
-/* Bottom text */
-span {
+.login-text {
   display: block;
-  margin-top: 15px;
   text-align: center;
-  font-size: 14px;
-}
-
-span a {
-  color: #4a90e2;
-  text-decoration: none;
-  font-weight: 500;
-}
-
-span a:hover {
-  text-decoration: underline;
+  margin-top: 10px;
 }
