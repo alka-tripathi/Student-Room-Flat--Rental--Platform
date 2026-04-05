@@ -1,87 +1,101 @@
-/* Full page background */
-.body {
-    height: 100vh;
-    display: flex;
-    justify-content: center;   /* horizontal center */
-    align-items: center;       /* vertical center */
-    background: #f4f6f9;
-    margin: 0;
-    font-family: Arial, sans-serif;
-    position: relative;
+body {
+  margin: 0;
 }
 
-/* Form container */
+/* Background */
+.body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-image: url('https://images.pexels.com/photos/1070527/pexels-photo-1070527.jpeg?cs=srgb&dl=pexels-steve-1070527.jpg&fm=jpg'); /* 👈 your image path */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Card */
 .container {
-    width: 380px;
-    background: #ffffff;
-    padding: 25px 30px;
-    border-radius: 12px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-    position: absolute;
-    top: 20px;
+  width: 100%;
+  max-width: 500px;
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  margin-bottom: 100px;
 }
 
 /* Heading */
 .container h1 {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #333;
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
 }
 
-/* Each field block */
+/* Fields */
 form div {
-    margin-bottom: 15px;
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
 }
 
-/* Labels */
+/* Label */
 label {
-    display: block;
-    font-weight: 600;
-    margin-bottom: 5px;
-    color: #444;
+  font-weight: 600;
+  margin-bottom: 5px;
 }
 
-/* Inputs + textarea */
+/* Inputs */
 input,
 textarea {
-    width: 100%;
-    padding: 14px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    outline: none;
-    font-size: 14px;
-    transition: 0.2s;
-     height: 10vh;
-
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  outline: none;
+  transition: 0.3s;
+  font-size: 14px;
 }
 
-/* Focus effect */
+/* Focus */
 input:focus,
 textarea:focus {
-    border-color: #007bff;
-   
+  border-color: #7b1fa2;
+  box-shadow: 0 0 5px rgba(123, 31, 162, 0.3);
 }
 
-/* File input */
+/* Textarea */
+textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+/* File */
 input[type="file"] {
-    border: none;
-    padding: 5px;
+  border: none;
+}
+
+/* Text */
+p {
+  font-size: 13px;
+  color: #555;
 }
 
 /* Button */
 button {
-    width: 100%;
-    padding: 12px;
-    background: #007bff;
-    color: white;
-    font-size: 16px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: 0.3s;
+  width: 100%;
+  padding: 12px;
+  background: #7b1fa2;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
 }
 
-/* Button hover */
 button:hover {
-    background: #0056b3;
+  background: #4a0072;
 }

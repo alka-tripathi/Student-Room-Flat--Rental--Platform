@@ -14,29 +14,23 @@ function NewForm() {
 
   const navigate = useNavigate();
 
-  // const handleChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setFormInfo({
-  //     ...formInfo,
-  //     images: Arrays.from(e.target.files),
-  //   });
-  // };
+  // Handle text inputs
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormInfo({
       ...formInfo,
-      [name]: value, // ✅ correct
+      [name]: value,
     });
   };
 
-  // 👇 handle image separately
+  // Handle image upload
   const handleImageChange = (e) => {
     const newImages = Array.from(e.target.files);
 
     setFormInfo((prev) => {
       const allImages = [...prev.images, ...newImages];
 
-      //👉 remove duplicates (by name)
+      // remove duplicates
       const uniqueImages = allImages.filter(
         (file, index, self) =>
           index === self.findIndex((f) => f.name === file.name),
@@ -49,6 +43,7 @@ function NewForm() {
     });
   };
 
+  // Submit form
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -82,17 +77,16 @@ function NewForm() {
       return;
     }
 
-    // ✅ SEND DATA
-
     const formData = new FormData();
     formData.append('title', formInfo.title);
     formData.append('location', formInfo.location);
     formData.append('price', formInfo.price);
     formData.append('description', formInfo.description);
     formData.append('contactNumber', formInfo.contactNumber);
-    for (let i = 0; i < formInfo.images.length; i++) {
-      formData.append('images', formInfo.images[i]);
-    }
+
+    formInfo.images.forEach((img) => {
+      formData.append('images', img);
+    });
 
     try {
       const res = await fetch('http://localhost:8000/room/addroom', {
@@ -104,8 +98,6 @@ function NewForm() {
       console.log(data);
 
       alert('Room added successfully 🎉');
-
-      //navigate to the home page
       navigate('/home');
 
       // reset form
@@ -115,11 +107,11 @@ function NewForm() {
         price: '',
         description: '',
         contactNumber: '',
-        image: [],
+        images: [],
       });
     } catch (err) {
-      alert('Room not added');
       console.error(err);
+      alert('Room not added ❌');
     }
   };
 
@@ -129,6 +121,7 @@ function NewForm() {
         <h1>Add New Room</h1>
 
         <form onSubmit={handleSubmit}>
+          {/* Title */}
           <div>
             <label>Title:</label>
             <input
@@ -136,11 +129,12 @@ function NewForm() {
               name="title"
               value={formInfo.title}
               onChange={handleChange}
-              placeholder="Example: 1BHK Room for Students"
+              placeholder="e.g. Spacious 1BHK Room near UIT College"
               autoFocus
             />
           </div>
 
+          {/* Location */}
           <div>
             <label>Location:</label>
             <input
@@ -148,31 +142,34 @@ function NewForm() {
               name="location"
               value={formInfo.location}
               onChange={handleChange}
-              placeholder="Enter location"
+              placeholder="e.g. Naini, Prayagraj, Uttar Pradesh"
             />
           </div>
 
+          {/* Price */}
           <div>
-            <label>Price:</label>
+            <label>Price (₹):</label>
             <input
               type="number"
               name="price"
               value={formInfo.price}
               onChange={handleChange}
-              placeholder="Enter rent price"
+              placeholder="e.g. 5000"
             />
           </div>
 
+          {/* Description */}
           <div>
             <label>Description:</label>
             <textarea
               name="description"
               value={formInfo.description}
               onChange={handleChange}
-              placeholder="Write details about the room"
+              placeholder="e.g. Fully furnished room with bed, fan, attached bathroom, WiFi available"
             ></textarea>
           </div>
 
+          {/* Contact */}
           <div>
             <label>Contact Number:</label>
             <input
@@ -180,21 +177,19 @@ function NewForm() {
               name="contactNumber"
               value={formInfo.contactNumber}
               onChange={handleChange}
-              placeholder="Enter contact number"
+              placeholder="e.g. 9876543210"
             />
           </div>
 
-          {/* ✅ Image Upload */}
+          {/* Images */}
           <div>
-            <label>Upload Image:</label>
+            <label>Upload Images:</label>
             <input
               type="file"
               multiple
               accept="image/*"
-              name="images"
               onChange={handleImageChange}
             />
-            {/* ✅ Show count */}
             {formInfo.images.length > 0 && (
               <p>{formInfo.images.length} image(s) selected</p>
             )}

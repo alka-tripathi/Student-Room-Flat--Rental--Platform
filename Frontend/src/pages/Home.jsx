@@ -4,11 +4,15 @@ import { ToastContainer } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import HeroSection from '../components/HeroSection';
-import Cards from '../components/Cards';
+// import Cards from '../components/Cards';
+import CardItem from '../components/CardItem';
+import '../style/home.css';
 
-function Home() {
+function Home({ likedRooms, setLikedRooms }) {
   const [loggedUser, setLoggedUser] = useState('');
   const [rooms, setRooms] = useState([]);
+
+  //const [likedRooms, setLikedRooms] = useState([]); //lift up
 
   useEffect(() => {
     setLoggedUser(localStorage.getItem('loggedInUser'));
@@ -51,8 +55,23 @@ function Home() {
       {/* hero section */}
       <HeroSection></HeroSection>
 
-      {/* all room infomation */}
-      <Cards rooms={rooms}></Cards>
+      <CardItem></CardItem>
+
+      {/* <div className="cards-container">
+        {rooms.length === 0 ? (
+          <p>Loading rooms...</p>
+        ) : (
+          rooms.map((room) => (
+            <Cards
+              key={room._id}
+              room={room}
+              likedRooms={likedRooms}
+              setLikedRooms={setLikedRooms}
+              className="card"
+            />
+          ))
+        )}
+      </div> */}
 
       <ToastContainer />
     </div>

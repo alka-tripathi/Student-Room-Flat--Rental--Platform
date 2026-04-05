@@ -8,7 +8,7 @@
   min-height: 60vh;
 
   /* background: #f9fafc; */
-background: linear-gradient(to right, #2366a4, #FAF0CA);
+  background: linear-gradient(to right, #2366a4, #faf0ca);
 }
 
 /* Left side - Image */
@@ -22,7 +22,6 @@ background: linear-gradient(to right, #2366a4, #FAF0CA);
 .hero-container > :last-child {
   flex: 1;
 }
-
 
 .hero-text {
   position: relative;
@@ -60,7 +59,7 @@ background: linear-gradient(to right, #2366a4, #FAF0CA);
 
 /* Decorative background blur effect */
 .hero-text::before {
-  content: "";
+  content: '';
   position: absolute;
   top: -40px;
   left: -40px;
@@ -74,33 +73,96 @@ background: linear-gradient(to right, #2366a4, #FAF0CA);
 
 .card-img {
   position: relative;
+  overflow: hidden;
+  background: #f0f0f0;
 }
 
 .card-img img {
   width: 100%;
-  height: 200px;
+  height: 220px;
   object-fit: cover;
-  border-radius: 10px;
+  border-radius: 0;
+  transition: transform 0.3s ease;
 }
 
-/* Buttons */
-.prev,
-.next {
+.card:hover .card-img img {
+  transform: scale(1.05);
+}
+
+/* Like Button - Bottom Right */
+.like-btn {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  background: white;
+  border: none;
+  padding: 10px 10px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+  z-index: 10;
+  backdrop-filter: blur(4px);
+}
+
+.like-btn:hover {
+  background: #fff;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+  transform: scale(1.15);
+}
+
+.like-btn:active {
+  transform: scale(0.95);
+}
+
+/* Slider Buttons Container */
+.slider-btns {
+  display: flex;
+  justify-content: space-between;
   position: absolute;
   top: 50%;
+  left: 0;
+  right: 0;
   transform: translateY(-50%);
-  background: rgba(0,0,0,0.5);
+  padding: 0 10px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.card-img:hover .slider-btns {
+  opacity: 1;
+}
+
+.slider-btns button {
+  pointer-events: all;
+}
+
+/* Navigation Buttons */
+.prev,
+.next {
+  position: static;
+  background: rgba(0, 0, 0, 0.6);
   color: white;
   border: none;
-  padding: 5px 10px;
+  padding: 10px 12px;
   cursor: pointer;
-  border-radius: 5px;
+  border-radius: 4px;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  font-weight: bold;
 }
 
-.prev {
-  left: 10px;
+.prev:hover,
+.next:hover {
+  background: rgba(0, 0, 0, 0.9);
+  transform: scale(1.15);
 }
 
-.next {
-  right: 10px;
+.prev:active,
+.next:active {
+  transform: scale(0.9);
 }

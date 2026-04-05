@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import '../style/navbar.css';
 import ProfileDropDown from '../components/ProfileDropDown';
+import AddIcon from '@mui/icons-material/Add';
 
 function Navbar() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -18,13 +19,26 @@ function Navbar() {
       <div className="nav-right">
         <ul className="nav-links">
           <li>
-            <NavLink to="/">Home</NavLink>
+            <NavLink to="/home">Home</NavLink>
           </li>
           <li>
-            <NavLink to="/addroom">Add Rome</NavLink>
+            <NavLink to="/addroom">
+              <div
+                style={{
+                  textAlign: 'center',
+
+                  display: 'flex',
+                  alignItems: 'center',
+                  padding: '3px',
+                }}
+              >
+                {' '}
+                <AddIcon></AddIcon>Sell
+              </div>
+            </NavLink>
           </li>
           <li>
-            <NavLink to="/liked">Liked</NavLink>
+            <NavLink to="/liked_rooms">Liked</NavLink>
           </li>
 
           <form

@@ -35,6 +35,13 @@ const RoomSchema = new mongoose.Schema(
         message: 'At least one image is required',
       },
     },
+
+    likes: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+      },
+    ],
     createdAt: {
       type: Date,
       default: Date.now,
@@ -42,5 +49,6 @@ const RoomSchema = new mongoose.Schema(
   },
   { timestamps: true },
 );
-const Room = mongoose.model('Room', RoomSchema);
-module.exports = Room;
+//const Room = mongoose.model('Room', RoomSchema);
+module.exports = module.exports =
+  mongoose.models.Room || mongoose.model('Room', RoomSchema);
