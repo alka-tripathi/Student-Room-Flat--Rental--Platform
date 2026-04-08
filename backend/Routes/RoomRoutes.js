@@ -5,6 +5,7 @@ const upload = require('../Middleware/upload');
 const Room = require('../Models/Room');
 const newRoomValidate = require('../Middleware/newRoomValidator');
 const authMiddleware = require('../Middleware/Auth');
+const authController = require('../Controllers/AuthController');
 const newRoomController = require('../Controllers/RoomController');
 
 //router.post('/addroom', upload.array('images', 5), roomValidation, addRoom);
@@ -15,10 +16,21 @@ router.post(
   newRoomController,
 );
 
+// router.get('/getrooms', async (req, res) => {
+//   try {
+//     //If you want newly added rooms to appear first:
+//     const rooms = await Room.find().sort({ createdAt: -1 });
+//     res.json(rooms);
+//   } catch (err) {
+//     res.status(500).json({ error: err.message });
+//   }
+// });
+
 router.get('/getrooms', async (req, res) => {
   try {
-    //If you want newly added rooms to appear first:
-    const rooms = await Room.find().sort({ createdAt: -1 });
+    const rooms = await Room.find({ available: true }) // 🔥 important
+      .sort({ createdAt: -1 });
+
     res.json(rooms);
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -27,48 +39,53 @@ router.get('/getrooms', async (req, res) => {
 
 //to get liked  room page
 router.get('/liked_rooms', authMiddleware, async (req, res) => {
+  const userId = req.user._id;
+
+  const likedRooms = await Room.find({
+    likes: userId,
+  });
+
+  res.json({
+    success: true,
+    rooms: likedRooms,
+  });
+});
+
+router.get('/:id', async (req, res) => {
   try {
-    const userId = req.user.id;
-    const likedRooms = await Room.find({
-      likes: userId,
-    });
-    res.json(likedRooms);
+    const room = await Room.findById(req.params.id);
+    if (!room) {
+      return res.status(404).json({ message: 'Room not found' });
+    }
+    res.json(room);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 });
 
-// Like a room
 router.post('/like/:roomId', authMiddleware, async (req, res) => {
   try {
-    const { roomId } = req.params;
-    const userId = req.user.id;
+    const userId = req.user._id; // ✅ important
 
-    const room = await Room.findById(roomId);
+    const room = await Room.findById(req.params.roomId);
+
     if (!room) {
-      return res
-        .status(404)
-        .json({ success: false, message: 'Room not found' });
+      return res.status(404).json({ message: 'Room not found' });
     }
 
-    // Check if user already liked this room
-    if (room.likes.includes(userId)) {
-      return res
-        .status(400)
-        .json({ success: false, message: 'Room already liked' });
+    // prevent duplicate like
+    const alreadyLiked = room.likes.some((id) => id.toString() === userId);
+
+    if (!alreadyLiked) {
+      room.likes.push(userId);
+      await room.save(); // ✅ MUST SAVE
     }
 
-    // Add like
-    room.likes.push(userId);
-    await room.save();
+    console.log('UPDATED LIKES:', room.likes); // 🔥 debug
 
-    res.json({
-      success: true,
-      message: 'Room liked successfully',
-      room,
-    });
+    res.json({ success: true, room });
   } catch (err) {
-    res.status(500).json({ success: false, error: err.message });
+    res.status(500).json({ error: err.message });
   }
 });
 

@@ -1,0 +1,81 @@
+.room-details {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 20px;
+  border-radius: 16px;
+  background: #ffffff;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* .room-title {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 15px;
+  color: #333;
+} */
+ .room-title {
+  font-size: 32px;
+  font-weight: 700;
+  color: #0D3B66;
+  letter-spacing: 0.5px;
+  margin-bottom: 10px;
+  line-height: 1.3;
+}
+.room-subtitle {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.room-image {
+  width: 100%;
+  height:500px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+.room-info {
+  display: flex;
+  flex-direction: column;
+  padding-top: 10px;
+  gap: 10px;
+  font-size: 19px;
+}
+
+.room-description {
+  font-size: 16px;
+  color: #555;
+  line-height: 1.5;
+}
+
+.room-price {
+  font-size: 20px;
+  font-weight: bold;
+  color: #2e7d32;
+}
+
+.room-location {
+  font-size: 16px;
+  color: #666;
+}
+
+.room-contact {
+  font-size: 15px;
+  color: #444;
+  margin-top: 10px;
+}
+
+/* Optional: Add hover effect */
+.room-details:hover {
+  transform: scale(1.01);
+  transition: 0.3s ease;
+}
+.slider-btn{
+    background-color: #0D3B66;
+}
+.slider-btn:hover{
+    background-color: #4569AD;
+}

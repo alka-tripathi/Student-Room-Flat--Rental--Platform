@@ -35,11 +35,19 @@ function Login() {
         body: JSON.stringify(loginInfo),
       });
       const result = await response.json();
-      const { success, message, token, name, error } = result;
+      const { success, message, jwtTokens, name, error } = result;
       if (success) {
         handleSuccess(message);
-        localStorage.setItem('Jwttoken', token);
-        localStorage.setItem('loggedInUser', name);
+        // localStorage.setItem('Jwttoken', token);
+        // localStorage.setItem('loggedInUser', name);
+        localStorage.setItem(
+          'user',
+          JSON.stringify({
+            jwtTokens: jwtTokens, // ✅ FIXED
+            id: result._id, // 🔥 IMPORTANT
+            name: name,
+          }),
+        );
         setTimeout(() => {
           navigate('/home');
         }, 1000);
@@ -53,6 +61,8 @@ function Login() {
     } catch (err) {
       handleError(err.message || 'Signup failed');
     }
+    console.log(JSON.parse(localStorage.getItem('user')));
+    console.log(user);
   };
 
   return (

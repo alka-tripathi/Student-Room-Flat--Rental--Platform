@@ -5,7 +5,9 @@ import Home from './pages/Home.jsx';
 import './App.css';
 import LoginPage from './pages/Login';
 import NewRoom from './pages/NewRoom.jsx';
-// import LikedRoom from './pages/LikedRoom.jsx';
+import LikedRoom from './pages/LikedRoom.jsx';
+import RoomDetails from './pages/RoomDetails.jsx';
+
 
 function App() {
   const [likedRooms, setLikedRooms] = useState([]);
@@ -66,15 +68,17 @@ function App() {
           element={<NewRoom></NewRoom>}
         ></Route>
 
-        {/* <Route
+        <Route
           path="/liked_rooms"
-          element={
-            <LikedRoom
-              likedRooms={likedRooms}
-              setLikedRooms={setLikedRooms}
-            ></LikedRoom>
-          }
-        ></Route> */}
+          element={<LikedRoom></LikedRoom>}
+        ></Route>
+        {/* <Route
+          path="/:id"
+          element={<SingleRoom />}
+        /> */}
+
+
+         <Route path="/room/:id" element={<RoomDetails />} />
 
         <Route
           path="*"
