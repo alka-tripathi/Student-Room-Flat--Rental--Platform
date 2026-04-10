@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 import Cards from '../components/Cards';
 import '../style/likedRooms.css';
 import '../style/card.css';
@@ -42,6 +43,10 @@ function LikedRooms() {
     fetchLikedRooms();
   }, [token]);
 
+  const handleRemove = (id) => {
+    setLikedRooms((prev) => prev.filter((room) => room._id !== id));
+  };
+
   return (
     <div className="liked-container">
       <h1 className="liked-heading">❤️ Liked Rooms ({likedRooms.length})</h1>
@@ -54,6 +59,7 @@ function LikedRooms() {
             <Cards
               key={room._id}
               room={room}
+              onUnlike={handleRemove}
             />
           ))}
         </div>

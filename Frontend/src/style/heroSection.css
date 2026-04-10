@@ -166,3 +166,29 @@
 .next:active {
   transform: scale(0.9);
 }
+
+/* 🔥 Tablet view */
+@media (max-width: 900px) {
+  .hero-container {
+    flex-direction: column;   /* stack instead of side */
+    align-items: center;
+    text-align: center;
+  }
+
+  .hero-text {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .hero-text h1 {
+    font-size: 28px;
+  }
+
+  .hero-text h2 {
+    font-size: 20px;
+  }
+
+  .hero-text h3 {
+    font-size: 14px;
+  }
+}

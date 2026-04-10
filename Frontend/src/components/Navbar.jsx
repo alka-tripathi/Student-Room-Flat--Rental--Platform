@@ -1,60 +1,67 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import '../style/navbar.css';
 import ProfileDropDown from '../components/ProfileDropDown';
 import AddIcon from '@mui/icons-material/Add';
 
-function Navbar() {
-  const [searchTerm, setSearchTerm] = useState('');
+function Navbar({ searchTerm, setSearchTerm }) {
+  const [menuOpen, setMenuOpen] = useState(false);
 
-  const handleSearch = (e) => {
-    e.preventDefault();
-    console.log('Searching for:', searchTerm);
-  };
   return (
     <div className="navbar">
       <div className="logo">Rental.co</div>
 
-      <div className="nav-right">
+      {/* 🍔 Hamburger */}
+      <div
+        className="menu-icon"
+        onClick={() => setMenuOpen(!menuOpen)}
+      >
+        ☰
+      </div>
+
+      <div className={`nav-right ${menuOpen ? 'active' : ''}`}>
         <ul className="nav-links">
           <li>
-            <NavLink to="/home">Home</NavLink>
+            <NavLink
+              to="/home"
+              onClick={() => setMenuOpen(false)}
+            >
+              Home
+            </NavLink>
           </li>
-          <li>
-            <NavLink to="/addroom">
-              <div
-                style={{
-                  textAlign: 'center',
 
-                  display: 'flex',
-                  alignItems: 'center',
-                  padding: '3px',
-                }}
-              >
-                {' '}
-                <AddIcon></AddIcon>Sell
+          <li>
+            <NavLink
+              to="/addroom"
+              onClick={() => setMenuOpen(false)}
+            >
+              <div className="sell-btn">
+                <AddIcon /> Sell
               </div>
             </NavLink>
           </li>
+
           <li>
-            <NavLink to="/liked_rooms">Liked</NavLink>
+            <NavLink
+              to="/liked_rooms"
+              onClick={() => setMenuOpen(false)}
+            >
+              Liked
+            </NavLink>
           </li>
 
-          <form
-            className="search-bar"
-            onSubmit={handleSearch}
-          >
+          {/* 🔍 Search */}
+          <div className="search-bar">
             <input
               type="text"
-              placeholder="Search Room.."
+              placeholder="Search by location..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
-            <button type="submit">Search</button>
-          </form>
+          </div>
+
           <li className="profile-btn">
-            <ProfileDropDown></ProfileDropDown>
+            <ProfileDropDown />
           </li>
         </ul>
       </div>

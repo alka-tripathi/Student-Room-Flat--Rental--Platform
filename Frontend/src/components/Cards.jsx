@@ -3,6 +3,7 @@ import StarBorderIcon from '@mui/icons-material/StarBorder';
 import StarIcon from '@mui/icons-material/Star';
 import '../style/card.css';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 function Cards({ room }) {
   const navigate = useNavigate();
@@ -30,6 +31,7 @@ function Cards({ room }) {
             Authorization: `Bearer ${token}`,
           },
         });
+        toast.success('Added to liked ❤️');
       } else {
         // ❌ UNLIKE
         res = await fetch(`http://localhost:8000/room/unlike/${room._id}`, {
@@ -38,6 +40,7 @@ function Cards({ room }) {
             Authorization: `Bearer ${token}`,
           },
         });
+        toast.info('Removed from liked 💔'); // 🔥 MAIN PART
       }
 
       const data = await res.json();
@@ -52,8 +55,12 @@ function Cards({ room }) {
   };
 
   const showRoomDetails = () => {
-  navigate(`/room/${room._id}`);
-};
+    navigate(`/room/${room._id}`);
+  };
+
+  const handleRemove = (id) => {
+    setLikedRooms((prev) => prev.filter((room) => room._id !== id));
+  };
 
   return (
     <div className="card">

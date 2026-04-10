@@ -5,6 +5,14 @@
   min-height: 100vh;
 }
 
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 300px); /* ✅ fixed width */
+  justify-content: center; /* center grid */
+  gap: 20px;
+  padding: 20px;
+}
+
 /* Heading */
 .liked-heading {
   font-size: 28px;

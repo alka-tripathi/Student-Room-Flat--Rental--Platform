@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+
 import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import '../style/loginPage.css';
 import { handleError, handleSuccess } from '../utils';
 
@@ -67,6 +70,7 @@ function Login() {
 
   return (
     <div className="login-page">
+      <div className="login-logo">Rental.co</div>
       <div className="left-section">
         <img
           src="https://i.pinimg.com/1200x/2e/76/b7/2e76b7b352e21747439a3a0d6bec272c.jpg"
@@ -114,7 +118,12 @@ function Login() {
             </span>
           </form>
 
-          <ToastContainer />
+          <ToastContainer
+            position="top-right"
+            autoClose={2000}
+            hideProgressBar={true}
+            theme="colored"
+          />
         </div>
       </div>
     </div>

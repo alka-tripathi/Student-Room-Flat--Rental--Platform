@@ -1,4 +1,4 @@
-*,
+/* *,
 *::before,
 *::after {
   box-sizing: border-box;
@@ -15,9 +15,52 @@ html,body {
   align-items: center; */
   /* background-color: #f2f2f2; */
    /* background-color: #FAF0CA; */
-  font-family: Arial, sans-serif;
+  /* font-family: Arial, sans-serif; */
+/* } */
+
+/* label {
+  font-size: 20px;
+} */ */
+
+/* Remove default spacing */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-label {
-  font-size: 20px;
+/* Full height layout */
+html, body, #root {
+  height: 100%;
+  width: 100%;
+}
+
+/* Background */
+body {
+  background-color: #f9f9f9; /* or your color */
+  font-family: Arial, sans-serif;
+}
+/* .Toastify__progress-bar {
+  display: none !important;
+}
+
+
+.Toastify__toast button {
+  all: unset;
+  cursor: pointer;
+  padding-left: 50px;
+} */
+
+.Toastify__close-button {
+    all: unset;
+  cursor: pointer;
+  padding-left: 50px;
+  color: #fff !important;   /* or black */
+  opacity: 1;
+}
+
+/* Remove weird hover effect */
+.Toastify__close-button:hover {
+  color: #ddd !important;
+  background: transparent !important;
 }

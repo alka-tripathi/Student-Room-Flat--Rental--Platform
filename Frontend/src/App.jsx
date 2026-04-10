@@ -8,12 +8,14 @@ import NewRoom from './pages/NewRoom.jsx';
 import LikedRoom from './pages/LikedRoom.jsx';
 import RoomDetails from './pages/RoomDetails.jsx';
 
+/* 🔥 ADD THIS */
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   const [likedRooms, setLikedRooms] = useState([]);
 
   useEffect(() => {
-    // Fetch liked rooms from backend when user is logged in
     const fetchLikedRooms = async () => {
       const token = localStorage.getItem('token');
       if (!token) return;
@@ -42,49 +44,57 @@ function App() {
       <Routes>
         <Route
           path="/"
-          element={<Navigate to="/login"></Navigate>}
-        ></Route>
+          element={<Navigate to="/login" />}
+        />
+
         <Route
           path="/home"
           element={
             <Home
               likedRooms={likedRooms}
               setLikedRooms={setLikedRooms}
-            ></Home>
+            />
           }
-        ></Route>
+        />
+
         <Route
           path="/signup"
-          element={<SignupPage></SignupPage>}
-        ></Route>
-
+          element={<SignupPage />}
+        />
         <Route
           path="/login"
-          element={<LoginPage></LoginPage>}
-        ></Route>
-
+          element={<LoginPage />}
+        />
         <Route
           path="/addroom"
-          element={<NewRoom></NewRoom>}
-        ></Route>
-
+          element={<NewRoom />}
+        />
         <Route
           path="/liked_rooms"
-          element={<LikedRoom></LikedRoom>}
-        ></Route>
-        {/* <Route
-          path="/:id"
-          element={<SingleRoom />}
-        /> */}
-
-
-         <Route path="/room/:id" element={<RoomDetails />} />
+          element={<LikedRoom />}
+        />
+        <Route
+          path="/room/:id"
+          element={<RoomDetails />}
+        />
 
         <Route
           path="*"
-          element={<LoginPage></LoginPage>}
-        ></Route>
+          element={<LoginPage />}
+        />
       </Routes>
+
+      {/* 🔥 ADD TOAST HERE (ONLY ONCE) */}
+      <ToastContainer
+        position="top-right"
+        autoClose={2000}
+        newestOnTop={true}
+        closeOnClick
+        pauseOnHover
+        draggable
+        hideProgressBar={true}
+        theme="light"
+      />
     </div>
   );
 }

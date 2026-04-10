@@ -1,61 +1,118 @@
-/* MAIN LAYOUT */
+/* Full page layout */
 .login-page {
   display: flex;
   min-height: 100vh;
+  width: 100%;
 }
 
-/* LEFT SIDE (IMAGE) */
+.login-logo {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  font-size: 22px;
+  font-weight: bold;
+  color: #0D3B66;
+  z-index: 10;
+}
+
+/* Left Image Section */
 .left-section {
   flex: 1;
 }
 
 .left-section img {
   width: 100%;
-  height: 70%;
+  height: 100%;
   object-fit: cover;
 }
 
-/* RIGHT SIDE (FORM AREA) */
+/* Right Form Section */
 .right-section {
   flex: 1;
   display: flex;
-  justify-content: center;   /* horizontal center */
-  align-items: center;       /* vertical center */
-  background: #f8f9fa;
+  justify-content: center;
+  align-items: center;
+  background: #f9f9f9;
 }
 
-/* LOGIN BOX */
+/* Form Container */
 .container {
-  width: 80%;
-  max-width: 400px;
-  padding: 30px;
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
-  margin-top: 100px;
+  width: 100%;
+  max-width: 350px;
+  padding: 20px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
-/* INPUT STYLING (optional but nice) */
- /* .inputs {
-  width: 100%;
-
-  margin-top: 5px;
+/* Heading */
+.container h1 {
+  text-align: center;
   margin-bottom: 20px;
- 
-} */
+}
 
-/* BUTTON */
+/* Inputs */
+.inputs {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0 15px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  outline: none;
+}
+
+.inputs:focus {
+  border-color: #007bff;
+}
+
+/* Button */
 .submit-btn {
   width: 100%;
   padding: 10px;
-  background-color: #0D3B66;
-  color: white;
+  background: #0D3B66;
+  color: #fff;
   border: none;
-  border-radius: 5px;
-  margin-bottom: 6%;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
 }
+
+.submit-btn:hover {
+  background: #094a8f;
+}
+
+/* Bottom text */
 .login-text {
   display: block;
-  text-align: center;
   margin-top: 10px;
+  text-align: center;
+  font-size: 14px;
+}
+
+/* 📱 MOBILE */
+@media (max-width: 768px) {
+  .login-page {
+    flex-direction: column;
+  }
+
+  /* ❌ Hide image */
+  .left-section {
+    display: none;
+  }
+
+  .right-section {
+    width: 100%;
+    padding: 20px;
+  }
+
+  .container {
+    max-width: 100%;
+  }
+}
+
+/* 📲 TABLET */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .container {
+    max-width: 400px;
+  }
 }

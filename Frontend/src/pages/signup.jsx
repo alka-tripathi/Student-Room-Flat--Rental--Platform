@@ -59,6 +59,7 @@ function Signup() {
 
   return (
     <div className="signup-page">
+      <div className="login-logo">Rental.co</div>
       <div className="left-section">
         <img
           src="https://i.pinimg.com/1200x/43/56/60/435660a0b77945971c07daca4c554bdd.jpg"

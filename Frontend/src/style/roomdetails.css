@@ -79,3 +79,36 @@
 .slider-btn:hover{
     background-color: #4569AD;
 }
+
+/* 🔥 Tablet view */
+@media (max-width: 768px) {
+  .room-details {
+    margin: 20px;
+    padding: 15px;
+  }
+
+  .room-title {
+    font-size: 26px;
+    text-align: center;
+  }
+
+  .room-subtitle {
+    font-size: 14px;
+  }
+
+  .room-image {
+    height: 320px; /* reduce from 500px */
+  }
+
+  .room-info {
+    font-size: 17px;
+  }
+
+  .room-price {
+    font-size: 18px;
+  }
+
+  .room-description {
+    font-size: 15px;
+  }
+}

@@ -1,28 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import { handleSuccess } from '../utils';
-import { ToastContainer } from 'react-toastify';
+
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import HeroSection from '../components/HeroSection';
-// import Cards from '../components/Cards';
 import CardItem from '../components/CardItem';
 import '../style/home.css';
 
 function Home({ likedRooms, setLikedRooms }) {
   const [loggedUser, setLoggedUser] = useState('');
   const [rooms, setRooms] = useState([]);
+  const [searchRooms, setSearchRooms] = useState('');
 
-  //const [likedRooms, setLikedRooms] = useState([]); //lift up
+  const navigate = useNavigate();
 
+  // ✅ Get logged user
   useEffect(() => {
     setLoggedUser(localStorage.getItem('loggedInUser'));
   }, []);
-  const navigate = useNavigate();
 
+  // ✅ Fetch rooms
   useEffect(() => {
-    setLoggedUser(localStorage.getItem('loggedInUser'));
-
-    // ✅ fetch rooms
     const fetchRooms = async () => {
       try {
         const res = await fetch('http://localhost:8000/room/getrooms');
@@ -36,44 +34,38 @@ function Home({ likedRooms, setLikedRooms }) {
     fetchRooms();
   }, []);
 
-  //delete the
-  const logOut = (e) => {
+  // ✅ Filter rooms based on location
+  const filteredRooms = rooms.filter((room) =>
+    room.location?.toLowerCase().includes(searchRooms.toLowerCase()),
+  );
+
+  // ✅ Logout
+  const logOut = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('loggedInUser');
-    handleSuccess('UserLogged out!');
+    handleSuccess('User Logged out!');
     setTimeout(() => {
-      //sec baad logout ho jyege
       navigate('/login');
     }, 1000);
   };
 
   return (
     <div>
-      {/* <h2>{loggedUser}</h2> */}
-      <Navbar></Navbar>
+      {/* Navbar with search */}
+      <Navbar
+        searchTerm={searchRooms}
+        setSearchTerm={setSearchRooms}
+      />
 
-      {/* hero section */}
-      <HeroSection></HeroSection>
+      {/* Hero Section */}
+      <HeroSection />
 
-      <CardItem></CardItem>
-
-      {/* <div className="cards-container">
-        {rooms.length === 0 ? (
-          <p>Loading rooms...</p>
-        ) : (
-          rooms.map((room) => (
-            <Cards
-              key={room._id}
-              room={room}
-              likedRooms={likedRooms}
-              setLikedRooms={setLikedRooms}
-              className="card"
-            />
-          ))
-        )}
-      </div> */}
-
-      <ToastContainer />
+      {/* Cards Section */}
+      <CardItem
+        rooms={filteredRooms}
+        likedRooms={likedRooms}
+        setLikedRooms={setLikedRooms}
+      />
     </div>
   );
 }

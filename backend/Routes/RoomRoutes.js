@@ -93,7 +93,7 @@ router.post('/like/:roomId', authMiddleware, async (req, res) => {
 router.delete('/unlike/:roomId', authMiddleware, async (req, res) => {
   try {
     const { roomId } = req.params;
-    const userId = req.user.id;
+    const userId = req.user._id.toString();
 
     const room = await Room.findById(roomId);
     if (!room) {
