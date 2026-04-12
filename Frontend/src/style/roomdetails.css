@@ -20,6 +20,7 @@
   letter-spacing: 0.5px;
   margin-bottom: 10px;
   line-height: 1.3;
+text-align: center;
 }
 .room-subtitle {
   font-size: 16px;
@@ -111,4 +112,25 @@
   .room-description {
     font-size: 15px;
   }
+}
+
+.book-btn {
+  padding: 12px 25px;
+  background-color: #0D3B66;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s ease;
+  margin-top: 20px;
+}
+
+.book-btn:hover {
+  background-color: #094a86;
+}
+
+.book-btn.booked {
+  background-color: gray;
+  cursor: not-allowed;
 }

@@ -49,6 +49,14 @@ function Navbar({ searchTerm, setSearchTerm }) {
               Liked
             </NavLink>
           </li>
+          <li>
+            <NavLink
+              to="/about"
+              onClick={() => setMenuOpen(false)}
+            >
+              About
+            </NavLink>
+          </li>
 
           {/* 🔍 Search */}
           <div className="search-bar">

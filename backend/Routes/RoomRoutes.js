@@ -123,4 +123,27 @@ router.delete('/unlike/:roomId', authMiddleware, async (req, res) => {
   }
 });
 
+router.put('/book/:id', async (req, res) => {
+  try {
+    const room = await Room.findById(req.params.id);
+
+    if (!room) {
+      return res.status(404).json({ message: 'Room not found' });
+    }
+
+    // ❌ If already booked
+    if (!room.available) {
+      return res.status(400).json({ message: 'Room already booked' });
+    }
+
+    // ✅ Book room
+    room.available = false;
+    await room.save();
+
+    res.json(room);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 module.exports = router;

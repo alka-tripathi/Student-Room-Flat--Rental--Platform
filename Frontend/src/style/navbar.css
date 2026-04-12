@@ -41,6 +41,9 @@
   color:#0D3B66;
 
 }
+.nav-links a:hover {
+  color: #0D3B66;;
+}
 
 /* Also remove for visited/hover states */
 .nav-links a:visited,
@@ -60,15 +63,48 @@
 /* Search */
 .search-bar input {
   padding: 6px 10px;
+  width: 200px;
   border-radius: 6px;
   border: 1px solid #ccc;
+}
+.search-bar input:focus {
+  outline: none;              /* remove default blue outline */
+  border: 1px solid #0D3B66;  /* your theme color */
+  box-shadow: 0 0 5px rgba(13, 59, 102, 0.5); /* soft glow */
+}
+
+.nav-links a {
+  position: relative;
+}
+
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  width: 0%;
+  height: 2px;
+  bottom: -3px;
+  left: 0;
+  background-color: #0D3B66;
+  transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after {
+  width: 100%;
 }
 
 /* Profile */
 .profile-btn {
   cursor: pointer;
+  background-color: #0D3B66;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
 }
-
+.profile-btn:hover {
+  background-color: #0D3B66;
+  box-shadow: 0 4px 12px rgba(13, 59, 102, 0.3);
+}
 /* 🍔 Hamburger */
 .menu-icon {
   display: none;

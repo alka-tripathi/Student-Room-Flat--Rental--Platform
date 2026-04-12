@@ -11,40 +11,38 @@ function LikedRooms() {
   const token = user?.jwtTokens;
 
   useEffect(() => {
-    if (!token) return; // ✅ safety
+    if (!token) return;
 
     const fetchLikedRooms = async () => {
       try {
-        const res = await fetch(
-          'http://localhost:8000/room/liked_rooms', // ✅ FIXED
-          {
-            method: 'GET',
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
+        const res = await fetch('http://localhost:8000/room/liked_rooms', {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${token}`,
           },
-        );
+        });
 
         if (res.status === 401) {
-          alert('Please login again');
+          toast.error('Session expired, please login again');
           localStorage.removeItem('user');
           return;
         }
 
         const data = await res.json();
-        console.log(data);
-
         setLikedRooms(data.rooms);
       } catch (err) {
         console.log(err);
+        toast.error('Failed to load liked rooms');
       }
     };
 
     fetchLikedRooms();
   }, [token]);
 
+  // ✅ Remove card instantly after unlike
   const handleRemove = (id) => {
     setLikedRooms((prev) => prev.filter((room) => room._id !== id));
+    toast.info('Removed from liked 💔');
   };
 
   return (
@@ -59,7 +57,7 @@ function LikedRooms() {
             <Cards
               key={room._id}
               room={room}
-              onUnlike={handleRemove}
+              onUnlike={handleRemove} // 🔥 important
             />
           ))}
         </div>

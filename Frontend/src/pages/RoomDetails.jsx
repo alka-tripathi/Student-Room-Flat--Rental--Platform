@@ -6,18 +6,47 @@ function RoomDetails() {
   const { id } = useParams();
   const [room, setRoom] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isBooked, setIsBooked] = useState(false);
 
   useEffect(() => {
     const fetchRoom = async () => {
-      const res = await fetch(`http://localhost:8000/room/${id}`);
-      const data = await res.json();
-      setRoom(data);
+      try {
+        const res = await fetch(`http://localhost:8000/room/${id}`);
+        const data = await res.json();
+
+        setRoom(data);
+        setIsBooked(!data.available); // ✅ correct place
+      } catch (err) {
+        console.error(err);
+      }
     };
 
     fetchRoom();
   }, [id]);
 
   if (!room) return <p>Loading...</p>;
+
+  const handleBooking = async () => {
+    try {
+      const res = await fetch(`http://localhost:8000/room/book/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ available: false }),
+      });
+
+      const data = await res.json();
+
+      setRoom(data); // ✅ update UI
+      setIsBooked(true); // ✅ disable button
+
+      alert('Room booked successfully!');
+    } catch (error) {
+      console.error(error);
+      alert('Booking failed');
+    }
+  };
 
   const nextSlide = () => {
     setCurrentIndex((prev) => (prev === room.images.length - 1 ? 0 : prev + 1));
@@ -30,6 +59,7 @@ function RoomDetails() {
   return (
     <div className="room-details">
       <h1 className="room-title">{room.title}</h1>
+
       <p className="room-subtitle">
         📍 {room.location} • {room.category || 'Room'}
       </p>
@@ -70,11 +100,24 @@ function RoomDetails() {
 
       <div className="room-info">
         <p className="room-description">{room.description}</p>
+
         <p className="room-price">
           ₹ {room.price} <span className="per-month">/ month</span>
         </p>
+
         <p className="room-location">📍 {room.location}</p>
         <p className="room-contact">📞 {room.contactNumber}</p>
+      </div>
+
+      {/* ✅ Booking Button */}
+      <div className="booking-section">
+        <button
+          onClick={handleBooking}
+          disabled={isBooked}
+          className={`book-btn ${isBooked ? 'booked' : ''}`}
+        >
+          {isBooked ? 'Already Booked' : 'Book Now'}
+        </button>
       </div>
     </div>
   );

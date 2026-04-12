@@ -7,6 +7,7 @@ import LoginPage from './pages/Login';
 import NewRoom from './pages/NewRoom.jsx';
 import LikedRoom from './pages/LikedRoom.jsx';
 import RoomDetails from './pages/RoomDetails.jsx';
+import AboutPage from './pages/AboutPage.jsx';
 
 /* 🔥 ADD THIS */
 import { ToastContainer } from 'react-toastify';
@@ -14,6 +15,21 @@ import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   const [likedRooms, setLikedRooms] = useState([]);
+  const [rooms, setRooms] = useState([]);
+
+  useEffect(() => {
+    const fetchRooms = async () => {
+      try {
+        const res = await fetch('http://localhost:8000/room/getrooms');
+        const data = await res.json();
+        setRooms(data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchRooms();
+  }, []);
 
   useEffect(() => {
     const fetchLikedRooms = async () => {
@@ -56,6 +72,10 @@ function App() {
             />
           }
         />
+        <Route
+          path="/about"
+          element={<AboutPage />}
+        />
 
         <Route
           path="/signup"
@@ -75,7 +95,7 @@ function App() {
         />
         <Route
           path="/room/:id"
-          element={<RoomDetails />}
+          element={<RoomDetails  room={rooms} />}
         />
 
         <Route

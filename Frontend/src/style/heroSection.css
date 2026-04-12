@@ -33,10 +33,11 @@
   font-size: 3rem;
   font-weight: 800;
   line-height: 1.2;
+  color:#0D3B66;
 
-  background: linear-gradient(90deg, #4a90e2, #7b61ff);
+  /* background: linear-gradient(90deg, #4a90e2, #7b61ff);
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  -webkit-text-fill-color: transparent; */
 
   margin-bottom: 20px;
 }

@@ -5,20 +5,13 @@
   min-height: 100vh;
 }
 
-.cards-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, 300px); /* ✅ fixed width */
-  justify-content: center; /* center grid */
-  gap: 20px;
-  padding: 20px;
-}
-
 /* Heading */
 .liked-heading {
   font-size: 28px;
   font-weight: bold;
   margin-bottom: 25px;
   color: #333;
+  text-align: center;
 }
 
 /* Empty message */
@@ -29,9 +22,19 @@
   margin-top: 50px;
 }
 
-/* Cards grid */
+/* ✅ FIXED GRID (IMPORTANT) */
 .cards-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 20px;
+  padding: 20px;
+}
+
+/* Optional: smooth animation */
+.card {
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
 }

@@ -7,13 +7,15 @@ import { toast } from 'react-toastify';
 
 function Cards({ room }) {
   const navigate = useNavigate();
+
   const user = JSON.parse(localStorage.getItem('user'));
-  const token = user?.jwtTokens; // ✅ your token name
+  const token = user?.jwtTokens;
 
   const [liked, setLiked] = useState(
-    room.likes?.some((id) => id.toString() === user?.id),
+    user && room.likes?.some((id) => id.toString() === user.id),
   );
 
+  // ⭐ Like / Unlike
   const handleLike = async () => {
     try {
       if (!token) {
@@ -24,7 +26,6 @@ function Cards({ room }) {
       let res;
 
       if (!liked) {
-        // ⭐ LIKE
         res = await fetch(`http://localhost:8000/room/like/${room._id}`, {
           method: 'POST',
           headers: {
@@ -33,19 +34,16 @@ function Cards({ room }) {
         });
         toast.success('Added to liked ❤️');
       } else {
-        // ❌ UNLIKE
         res = await fetch(`http://localhost:8000/room/unlike/${room._id}`, {
           method: 'DELETE',
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
-        toast.info('Removed from liked 💔'); // 🔥 MAIN PART
+        toast.info('Removed from liked 💔');
       }
 
       const data = await res.json();
-
-      // ✅ sync UI with DB
       const updatedLikes = data.room.likes;
 
       setLiked(updatedLikes.some((id) => id.toString() === user?.id));
@@ -54,22 +52,26 @@ function Cards({ room }) {
     }
   };
 
+  // 🔍 Navigate to details (optional block if booked)
   const showRoomDetails = () => {
     navigate(`/room/${room._id}`);
   };
 
-  const handleRemove = (id) => {
-    setLikedRooms((prev) => prev.filter((room) => room._id !== id));
-  };
-
   return (
     <div className="card">
-      <img
-        src={room.images[0]}
-        alt="room"
-        className="card-img"
+      {/* 🔥 Image + Overlay */}
+      <div
+        className="card-img-container"
         onClick={showRoomDetails}
-      />
+      >
+        <img
+          src={room.images[0]}
+          alt="room"
+          className="card-img"
+        />
+
+        {!room.available && <div className="overlay">Booked</div>}
+      </div>
 
       <h2>{room.title}</h2>
       <p>📍 {room.location}</p>
@@ -79,6 +81,12 @@ function Cards({ room }) {
       <div className="card-bottom">
         <span className="contact">📞 {room.contactNumber}</span>
 
+        {/* ✅ Availability Status */}
+        <span className={room.available ? 'available' : 'not-available'}>
+          {room.available ? 'Available' : 'Booked'}
+        </span>
+
+        {/* ⭐ Like Button */}
         {liked ? (
           <StarIcon
             className="star-icon liked"
