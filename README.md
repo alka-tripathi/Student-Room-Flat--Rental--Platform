@@ -35,3 +35,23 @@ A full-stack web application where users can explore, like, and book rental room
 ---
 
 ## 📂 Project Structure
+/frontend
+/backend
+## 👩‍💻 Author
+
+**Alka Tripathi**  
+BTech CSE | Full Stack Developer  
+
+## 💡 Future Improvements
+
+- 💳 Online payment integration
+- 🧾 Booking history
+- 🔔 Notifications system
+- 📊 Admin dashboard
+
+---
+
+## ⭐ Show your support
+
+If you like this project, give it a ⭐ on GitHub!
+
