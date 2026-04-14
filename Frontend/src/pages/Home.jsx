@@ -13,6 +13,7 @@ function Home({ likedRooms, setLikedRooms }) {
   const [searchRooms, setSearchRooms] = useState('');
 
   const navigate = useNavigate();
+  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 
   //  Get logged user
   useEffect(() => {
@@ -23,7 +24,7 @@ function Home({ likedRooms, setLikedRooms }) {
   useEffect(() => {
     const fetchRooms = async () => {
       try {
-        const res = await fetch('http://localhost:8000/room/getrooms');
+        const res = await fetch(`${API_URL}/room/getrooms`);
         const data = await res.json();
         setRooms(data);
       } catch (err) {
@@ -31,8 +32,10 @@ function Home({ likedRooms, setLikedRooms }) {
       }
     };
 
-    fetchRooms();
-  }, []);
+    if (API_URL) {
+      fetchRooms();
+    }
+  }, [API_URL]);
 
   // Filter rooms based on location
   const filteredRooms = rooms.filter((room) =>

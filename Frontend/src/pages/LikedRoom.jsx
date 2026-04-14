@@ -5,6 +5,7 @@ import '../style/likedRooms.css';
 import '../style/card.css';
 
 function LikedRooms() {
+   const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
   const [likedRooms, setLikedRooms] = useState([]);
 
   const user = JSON.parse(localStorage.getItem('user'));
@@ -15,7 +16,7 @@ function LikedRooms() {
 
     const fetchLikedRooms = async () => {
       try {
-        const res = await fetch('http://localhost:8000/room/liked_rooms', {
+        const res = await fetch(`${API_URL}/room/liked_rooms`, {
           method: 'GET',
           headers: {
             Authorization: `Bearer ${token}`,

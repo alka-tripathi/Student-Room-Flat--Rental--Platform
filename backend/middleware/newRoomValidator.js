@@ -37,7 +37,7 @@ const newRoomValidate = (req, res, next) => {
     });
   }
 
-  next(); // ✅ move to controller
+  next(); //  move to controller
 };
 
 module.exports = newRoomValidate;

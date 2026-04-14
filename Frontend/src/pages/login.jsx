@@ -8,6 +8,7 @@ import '../style/loginPage.css';
 import { handleError, handleSuccess } from '../utils';
 
 function Login() {
+    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
   const [loginInfo, setLoginInfo] = useState({
     email: '',
     password: '',
@@ -29,7 +30,7 @@ function Login() {
       return handleError('All Field is required !!');
     }
     try {
-      const url = 'http://localhost:8000/auth/login'; //Ye backend server ka URL hai.
+      const url = `${API_URL}/auth/login`; //Ye backend server ka URL hai.
       const response = await fetch(url, {
         method: 'POST',
         headers: {

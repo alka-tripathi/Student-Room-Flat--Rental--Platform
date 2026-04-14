@@ -28,7 +28,7 @@ router.post(
 
 router.get('/getrooms', async (req, res) => {
   try {
-    const rooms = await Room.find({ available: true }) // 🔥 important
+    const rooms = await Room.find({ available: true }) //  important
       .sort({ createdAt: -1 });
 
     res.json(rooms);
@@ -65,7 +65,7 @@ router.get('/:id', async (req, res) => {
 
 router.post('/like/:roomId', authMiddleware, async (req, res) => {
   try {
-    const userId = req.user._id; // ✅ important
+    const userId = req.user._id; //  important
 
     const room = await Room.findById(req.params.roomId);
 
@@ -78,10 +78,10 @@ router.post('/like/:roomId', authMiddleware, async (req, res) => {
 
     if (!alreadyLiked) {
       room.likes.push(userId);
-      await room.save(); // ✅ MUST SAVE
+      await room.save(); //  MUST SAVE
     }
 
-    console.log('UPDATED LIKES:', room.likes); // 🔥 debug
+    console.log('UPDATED LIKES:', room.likes); // debug
 
     res.json({ success: true, room });
   } catch (err) {
@@ -89,7 +89,7 @@ router.post('/like/:roomId', authMiddleware, async (req, res) => {
   }
 });
 
-// Unlike a room
+
 router.delete('/unlike/:roomId', authMiddleware, async (req, res) => {
   try {
     const { roomId } = req.params;
@@ -102,14 +102,14 @@ router.delete('/unlike/:roomId', authMiddleware, async (req, res) => {
         .json({ success: false, message: 'Room not found' });
     }
 
-    // Check if user has liked this room
+  
     if (!room.likes.includes(userId)) {
       return res
         .status(400)
         .json({ success: false, message: 'Room not in liked list' });
     }
 
-    // Remove like
+   
     room.likes = room.likes.filter((id) => id.toString() !== userId);
     await room.save();
 
@@ -131,12 +131,10 @@ router.put('/book/:id', async (req, res) => {
       return res.status(404).json({ message: 'Room not found' });
     }
 
-    // ❌ If already booked
     if (!room.available) {
       return res.status(400).json({ message: 'Room already booked' });
     }
 
-    // ✅ Book room
     room.available = false;
     await room.save();
 

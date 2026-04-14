@@ -6,6 +6,7 @@ import { handleError, handleSuccess } from '../utils';
 import 'react-toastify/dist/ReactToastify.css';
 
 function Signup() {
+  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
   const [signupInfo, setsignup] = useState({
     name: '',
     email: '',
@@ -20,7 +21,7 @@ function Signup() {
       return handleError('All Field is required !!');
     }
     try {
-      const url = 'http://localhost:8000/auth/signup'; //Ye backend server ka URL hai.
+      const url = `${API_URL}/auth/signup`; //Ye backend server ka URL hai.
       const response = await fetch(url, {
         method: 'POST',
         headers: {

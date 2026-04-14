@@ -4,10 +4,10 @@ import StarIcon from '@mui/icons-material/Star';
 import '../style/card.css';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import Footer from './Footer';
 
 function Cards({ room }) {
   const navigate = useNavigate();
+  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 
   const user = JSON.parse(localStorage.getItem('user'));
   const token = user?.jwtTokens;
@@ -26,7 +26,7 @@ function Cards({ room }) {
       let res;
 
       if (!liked) {
-        res = await fetch(`http://localhost:8000/room/like/${room._id}`, {
+        res = await fetch(`${API_URL}/room/like/${room._id}`, {
           method: 'POST',
           headers: {
             Authorization: `Bearer ${token}`,
@@ -34,7 +34,7 @@ function Cards({ room }) {
         });
         toast.success('Added to liked ❤️');
       } else {
-        res = await fetch(`http://localhost:8000/room/unlike/${room._id}`, {
+        res = await fetch(`${API_URL}/room/unlike/${room._id}`, {
           method: 'DELETE',
           headers: {
             Authorization: `Bearer ${token}`,

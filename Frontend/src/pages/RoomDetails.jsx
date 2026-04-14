@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import '../style/roomdetails.css';
 
 function RoomDetails() {
+   const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
   const { id } = useParams();
   const [room, setRoom] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -11,7 +12,7 @@ function RoomDetails() {
   useEffect(() => {
     const fetchRoom = async () => {
       try {
-        const res = await fetch(`http://localhost:8000/room/${id}`);
+        const res = await fetch(`${API_URL}/room/${id}`);
         const data = await res.json();
 
         setRoom(data);
@@ -28,7 +29,7 @@ function RoomDetails() {
 
   const handleBooking = async () => {
     try {
-      const res = await fetch(`http://localhost:8000/room/book/${id}`, {
+      const res = await fetch(`${API_URL}/room/book/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

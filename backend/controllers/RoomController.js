@@ -1,4 +1,4 @@
-const Room = require('../models/Room');
+const Room = require('../Models/Room');
 const { uploadOnCloudinary } = require('../services/cloudinary');
 
 const addRoom = async (req, res) => {

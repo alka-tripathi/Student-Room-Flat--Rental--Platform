@@ -6,12 +6,13 @@ const {
 
 const router = require('express').Router();
 
+// 🔐 Auth Routes
+router.post('/signup', signupValidation, signup);
 router.post('/login', loginValidation, login);
 
-router.post('/signup', signupValidation, signup);
-
-
-
-
+// 🧪 Test route (optional)
+router.get('/test', (req, res) => {
+  res.send('Auth routes working');
+});
 
 module.exports = router;

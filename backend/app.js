@@ -1,38 +1,54 @@
-//setting up the server
+require('dotenv').config(); // 🔥 must be first
+
 const express = require('express');
 const app = express();
-const bodyParser = require('body-parser');
 const cors = require('cors');
+
 const AuthRouter = require('./Routes/AuthRouter');
-require('dotenv').config();
-require('./Models/db');
 const RoomRouter = require('./Routes/RoomRoutes');
+require('./Models/db');
+
 const { v2: cloudinary } = require('cloudinary');
 
-// Configure Cloudinary with environment variables
+// Cloudinary config
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
+// ✅ CORS setup
+const allowedOrigins = [process.env.FRONTEND_URL, 'http://localhost:5173'];
+
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
+    credentials: true,
+  }),
+);
+
+// Middleware
+app.use(express.json());
 app.use('/uploads', express.static('uploads'));
 
-const PORT = process.env.PORT || 5000;
+// Test route
 app.get('/ping', (req, res) => {
   res.send('Pong');
 });
 
-app.use(bodyParser.json());
-app.use(cors()); //server is open to any frontend port
-
-app.use('/auth', AuthRouter); //ye staring mai hoga route
-
-app.use('/product', AuthRouter);
-
-//add the images and details from the owner
+// Routes
+app.use('/auth', AuthRouter);
 app.use('/room', RoomRouter);
 
-app.listen(PORT, (req, res) => {
-  console.log('Server is listening to port');
+// Server start
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
