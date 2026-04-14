@@ -39,7 +39,7 @@ function LikedRooms() {
     fetchLikedRooms();
   }, [token]);
 
-  // ✅ Remove card instantly after unlike
+  // Remove card instantly after unlike
   const handleRemove = (id) => {
     setLikedRooms((prev) => prev.filter((room) => room._id !== id));
     toast.info('Removed from liked 💔');
@@ -47,7 +47,7 @@ function LikedRooms() {
 
   return (
     <div className="liked-container">
-      <h1 className="liked-heading">❤️ Liked Rooms ({likedRooms.length})</h1>
+      <h1 className="liked-heading">Liked Rooms ({likedRooms.length})</h1>
 
       {likedRooms.length === 0 ? (
         <p className="no-rooms">No liked rooms yet</p>
@@ -57,7 +57,7 @@ function LikedRooms() {
             <Cards
               key={room._id}
               room={room}
-              onUnlike={handleRemove} // 🔥 important
+              onUnlike={handleRemove} //  important
             />
           ))}
         </div>

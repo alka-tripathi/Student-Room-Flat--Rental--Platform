@@ -14,12 +14,12 @@ function Home({ likedRooms, setLikedRooms }) {
 
   const navigate = useNavigate();
 
-  // ✅ Get logged user
+  //  Get logged user
   useEffect(() => {
     setLoggedUser(localStorage.getItem('loggedInUser'));
   }, []);
 
-  // ✅ Fetch rooms
+  //  Fetch rooms
   useEffect(() => {
     const fetchRooms = async () => {
       try {
@@ -34,12 +34,12 @@ function Home({ likedRooms, setLikedRooms }) {
     fetchRooms();
   }, []);
 
-  // ✅ Filter rooms based on location
+  // Filter rooms based on location
   const filteredRooms = rooms.filter((room) =>
     room.location?.toLowerCase().includes(searchRooms.toLowerCase()),
   );
 
-  // ✅ Logout
+  //  Logout
   const logOut = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('loggedInUser');

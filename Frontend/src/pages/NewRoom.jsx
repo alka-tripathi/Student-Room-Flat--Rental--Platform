@@ -118,7 +118,7 @@ function NewForm() {
   return (
     <div className="body">
       <div className="container">
-        <h1>Add New Room</h1>
+        <h1>Add Your Room</h1>
 
         <form onSubmit={handleSubmit}>
           {/* Title */}

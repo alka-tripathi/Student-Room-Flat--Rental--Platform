@@ -15,7 +15,7 @@ function RoomDetails() {
         const data = await res.json();
 
         setRoom(data);
-        setIsBooked(!data.available); // ✅ correct place
+        setIsBooked(!data.available); //  correct place
       } catch (err) {
         console.error(err);
       }
@@ -38,8 +38,8 @@ function RoomDetails() {
 
       const data = await res.json();
 
-      setRoom(data); // ✅ update UI
-      setIsBooked(true); // ✅ disable button
+      setRoom(data); //  update UI
+      setIsBooked(true); //  disable button
 
       alert('Room booked successfully!');
     } catch (error) {
@@ -64,7 +64,7 @@ function RoomDetails() {
         📍 {room.location} • {room.category || 'Room'}
       </p>
 
-      {/* 🔥 Image Slider */}
+      {/*  Image Slider */}
       <div className="slider">
         <button
           className="slider-btn left"
@@ -109,7 +109,7 @@ function RoomDetails() {
         <p className="room-contact">📞 {room.contactNumber}</p>
       </div>
 
-      {/* ✅ Booking Button */}
+      {/*  Booking Button */}
       <div className="booking-section">
         <button
           onClick={handleBooking}

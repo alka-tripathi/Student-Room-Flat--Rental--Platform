@@ -46,8 +46,8 @@ function Login() {
         localStorage.setItem(
           'user',
           JSON.stringify({
-            jwtTokens: jwtTokens, // ✅ FIXED
-            id: result._id, // 🔥 IMPORTANT
+            jwtTokens: jwtTokens, // FIXED
+            id: result._id, //  IMPORTANT
             name: name,
           }),
         );

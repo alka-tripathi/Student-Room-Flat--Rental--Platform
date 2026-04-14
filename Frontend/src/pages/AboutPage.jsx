@@ -1,20 +1,21 @@
 import React from 'react';
+import ImageSection from '../components/ImageSection';
+import AboutSection from '../components/AboutSection';
+import AboutMe from '../components/AboutMe';
+import '../style/AboutPage.css';
 
 function AboutPage() {
   return (
     <div className="about-page">
-      <h1>About Rental.co</h1>
-      <p>
-        Welcome to Rental.co! This platform helps users find and list rental
-        rooms easily.
-      </p>
+      {/*  Heading */}
+      <h1 className="about-title">About Rental.co</h1>
 
-      <p>
-        Users can explore rooms based on location, like their favorite listings,
-        and even add their own rooms for rent.
-      </p>
-
-      <p>Built with ❤️ using React and Node.js.</p>
+      {/*  Sections */}
+      <div className="about-content">
+        <ImageSection />
+        <AboutSection />
+        <AboutMe />
+      </div>
     </div>
   );
 }

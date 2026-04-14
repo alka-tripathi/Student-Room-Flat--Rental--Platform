@@ -1,0 +1,84 @@
+/* 🌐 Page */
+.about-page {
+
+
+  box-sizing: border-box;
+  background-color: #f9f9f9;
+  width: 100%;
+}
+
+/* 🔹 Heading */
+.about-title {
+  background-color: #0D3B66;
+  text-align: center;
+  font-size: 28px;
+  color: white;
+
+}
+
+/* 🔹 Content wrapper */
+.about-content {
+ 
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+/* 🖼️ Image Section */
+.image-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+ 
+  width: 100%;
+  background-color: #0D3B66;
+  height: 60vh;
+}
+
+.image-section img {
+  width: 32%;
+  height: 250px;
+  object-fit: cover;
+ 
+  margin-left: 30px;
+  margin-right: 30px;
+}
+
+/* 🔥 Tablet */
+/* 🔥 Fix image spacing issue (important) */
+@media (max-width: 1024px) {
+  .image-section img {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+}
+
+/* 🔥 Tablet improvements */
+@media (max-width: 768px) {
+  .image-section {
+    height: auto; /* ✅ remove fixed height */
+    padding: 20px 0;
+  }
+
+  .image-section img {
+    height: 200px;
+  }
+}
+
+/* 🔥 Mobile improvements */
+@media (max-width: 480px) {
+  .image-section {
+    height: auto; 
+    padding: 15px 0;
+  }
+
+  .image-section img {
+    height: 180px;
+    margin-left: 0;   
+    margin-right: 0;
+  }
+
+  .about-title {
+    padding: 10px; 
+  }
+}

@@ -4,6 +4,7 @@ import StarIcon from '@mui/icons-material/Star';
 import '../style/card.css';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import Footer from './Footer';
 
 function Cards({ room }) {
   const navigate = useNavigate();
@@ -15,7 +16,6 @@ function Cards({ room }) {
     user && room.likes?.some((id) => id.toString() === user.id),
   );
 
-  // ⭐ Like / Unlike
   const handleLike = async () => {
     try {
       if (!token) {
@@ -52,14 +52,14 @@ function Cards({ room }) {
     }
   };
 
-  // 🔍 Navigate to details (optional block if booked)
+  //  Navigate to details (optional block if booked)
   const showRoomDetails = () => {
     navigate(`/room/${room._id}`);
   };
 
   return (
     <div className="card">
-      {/* 🔥 Image + Overlay */}
+      {/* Image + Overlay */}
       <div
         className="card-img-container"
         onClick={showRoomDetails}
@@ -81,12 +81,10 @@ function Cards({ room }) {
       <div className="card-bottom">
         <span className="contact">📞 {room.contactNumber}</span>
 
-        {/* ✅ Availability Status */}
         <span className={room.available ? 'available' : 'not-available'}>
           {room.available ? 'Available' : 'Booked'}
         </span>
 
-        {/* ⭐ Like Button */}
         {liked ? (
           <StarIcon
             className="star-icon liked"

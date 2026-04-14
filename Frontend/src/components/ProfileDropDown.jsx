@@ -27,7 +27,7 @@ function ProfileDropDown() {
 
       {open && (
         <div className="profile-dropdown">
-          <p onClick={() => navigate('/profile')}>View Profile</p>
+          <p onClick={() => navigate('/home')}>View Profile</p>
           <p onClick={handleLogout}>Logout</p>
         </div>
       )}

@@ -11,7 +11,7 @@ function Navbar({ searchTerm, setSearchTerm }) {
     <div className="navbar">
       <div className="logo">Rental.co</div>
 
-      {/* 🍔 Hamburger */}
+      {/* Hamburger */}
       <div
         className="menu-icon"
         onClick={() => setMenuOpen(!menuOpen)}
@@ -58,7 +58,7 @@ function Navbar({ searchTerm, setSearchTerm }) {
             </NavLink>
           </li>
 
-          {/* 🔍 Search */}
+          {/* Search */}
           <div className="search-bar">
             <input
               type="text"

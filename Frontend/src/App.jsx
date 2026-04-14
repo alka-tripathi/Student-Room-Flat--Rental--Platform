@@ -8,14 +8,20 @@ import NewRoom from './pages/NewRoom.jsx';
 import LikedRoom from './pages/LikedRoom.jsx';
 import RoomDetails from './pages/RoomDetails.jsx';
 import AboutPage from './pages/AboutPage.jsx';
+import Footer from './components/Footer';
 
-/* 🔥 ADD THIS */
+import { useLocation } from 'react-router-dom';
+
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   const [likedRooms, setLikedRooms] = useState([]);
   const [rooms, setRooms] = useState([]);
+
+  const location = useLocation();
+
+  const hideFooterRoutes = ['/login', '/signup'];
 
   useEffect(() => {
     const fetchRooms = async () => {
@@ -95,7 +101,7 @@ function App() {
         />
         <Route
           path="/room/:id"
-          element={<RoomDetails  room={rooms} />}
+          element={<RoomDetails room={rooms} />}
         />
 
         <Route
@@ -104,7 +110,9 @@ function App() {
         />
       </Routes>
 
-      {/* 🔥 ADD TOAST HERE (ONLY ONCE) */}
+      {!hideFooterRoutes.includes(location.pathname) && <Footer />}
+
+      {/* add toast here once */}
       <ToastContainer
         position="top-right"
         autoClose={2000}
