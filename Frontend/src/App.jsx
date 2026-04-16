@@ -3,7 +3,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import SignupPage from './pages/signup';
 import Home from './pages/Home.jsx';
 import './App.css';
-import LoginPage from './pages/Login';
+import Login from './pages/login';
 import NewRoom from './pages/NewRoom.jsx';
 import LikedRoom from './pages/LikedRoom.jsx';
 import RoomDetails from './pages/RoomDetails.jsx';
@@ -89,7 +89,7 @@ function App() {
         />
         <Route
           path="/login"
-          element={<LoginPage />}
+          element={<Login />}
         />
         <Route
           path="/addroom"
