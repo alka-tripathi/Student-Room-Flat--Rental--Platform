@@ -8,7 +8,7 @@ import '../style/loginPage.css';
 import { handleError, handleSuccess } from '../utils';
 
 function Login() {
-    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
   const [loginInfo, setLoginInfo] = useState({
     email: '',
     password: '',
@@ -66,7 +66,7 @@ function Login() {
       handleError(err.message || 'Signup failed');
     }
     console.log(JSON.parse(localStorage.getItem('user')));
-    console.log(user);
+    //console.log(user);
   };
 
   return (
