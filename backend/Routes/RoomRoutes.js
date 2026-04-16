@@ -1,12 +1,12 @@
 const router = require('express').Router();
 
-const upload = require('../Middleware/upload');
+const upload = require('../middleware/upload');
 
 const Room = require('../Models/Room');
-const newRoomValidate = require('../Middleware/newRoomValidator');
-const authMiddleware = require('../Middleware/Auth');
-const authController = require('../Controllers/AuthController');
-const newRoomController = require('../Controllers/RoomController');
+const newRoomValidate = require('../middleware/newRoomValidator');
+const authMiddleware = require('../middleware/Auth');
+const authController = require('../controllers/AuthController');
+const newRoomController = require('../controllers/RoomController');
 
 //router.post('/addroom', upload.array('images', 5), roomValidation, addRoom);
 router.post(
@@ -89,7 +89,6 @@ router.post('/like/:roomId', authMiddleware, async (req, res) => {
   }
 });
 
-
 router.delete('/unlike/:roomId', authMiddleware, async (req, res) => {
   try {
     const { roomId } = req.params;
@@ -102,14 +101,12 @@ router.delete('/unlike/:roomId', authMiddleware, async (req, res) => {
         .json({ success: false, message: 'Room not found' });
     }
 
-  
     if (!room.likes.includes(userId)) {
       return res
         .status(400)
         .json({ success: false, message: 'Room not in liked list' });
     }
 
-   
     room.likes = room.likes.filter((id) => id.toString() !== userId);
     await room.save();
 
