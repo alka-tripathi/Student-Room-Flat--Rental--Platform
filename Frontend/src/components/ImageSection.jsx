@@ -1,6 +1,6 @@
 import React from 'react';
 
-import '../style/AboutPage.css';
+import '../style/aboutPage.css';
 
 function ImageSection() {
   return (
