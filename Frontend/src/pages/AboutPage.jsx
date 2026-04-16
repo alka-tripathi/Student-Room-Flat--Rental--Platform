@@ -2,7 +2,7 @@ import React from 'react';
 import ImageSection from '../components/ImageSection';
 import AboutSection from '../components/AboutSection';
 import AboutMe from '../components/AboutMe';
-import '../style/AboutPage.css';
+import '../style/aboutPage.css';
 
 function AboutPage() {
   return (
