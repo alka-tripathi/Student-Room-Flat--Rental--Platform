@@ -106,7 +106,7 @@ function App() {
 
         <Route
           path="*"
-          element={<LoginPage />}
+          element={<Login />}
         />
       </Routes>
 
