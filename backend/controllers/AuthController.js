@@ -81,6 +81,14 @@ const login = async (req, res) => {
       expiresIn: '24h',
     });
 
+    // ✅ ADD THIS PART 👇
+    res.cookie('token', jwtTokens, {
+      httpOnly: true,
+      secure: true, // required for Render (HTTPS)
+      sameSite: 'None', // required for cross-origin
+    });
+
+    // ✅ RESPONSE
     res.status(200).json({
       message: 'Login successful',
       success: true,
@@ -89,7 +97,7 @@ const login = async (req, res) => {
         name: user.name,
         email: user.email,
       },
-      jwtTokens,
+      // ❌ no need to send jwtTokens now (optional)
     });
   } catch (error) {
     res.status(500).json({

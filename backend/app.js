@@ -20,15 +20,28 @@ cloudinary.config({
 // ✅ CORS setup
 const allowedOrigins = [process.env.FRONTEND_URL, 'http://localhost:5173'];
 
+// app.use(
+//   cors({
+//     origin: function (origin, callback) {
+//       console.log('CORS Origin:', origin); // Debugging log
+//       if (!origin || allowedOrigins.includes(origin)) {
+//         callback(null, true);
+//       } else {
+//         callback(new Error('Not allowed by CORS'));
+//       }
+//     },
+//     credentials: true,
+//   }),
+// );
+
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://rentalco-gwwb.onrender.com',
+];
+
 app.use(
   cors({
-    origin: function (origin, callback) {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error('Not allowed by CORS'));
-      }
-    },
+    origin: allowedOrigins,
     credentials: true,
   }),
 );
