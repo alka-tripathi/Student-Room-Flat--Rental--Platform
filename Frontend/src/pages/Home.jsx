@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { handleSuccess } from '../utils';
-
 import { useNavigate } from 'react-router-dom';
+
 import Navbar from '../components/Navbar';
 import HeroSection from '../components/HeroSection';
 import CardItem from '../components/CardItem';
+
 import '../style/home.css';
 
 function Home({ likedRooms, setLikedRooms }) {
@@ -13,14 +14,14 @@ function Home({ likedRooms, setLikedRooms }) {
   const [searchRooms, setSearchRooms] = useState('');
 
   const navigate = useNavigate();
-  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+  const API_URL = import.meta.env.VITE_API_URL;
 
-  //  Get logged user
+  // ✅ Get logged user (UI only)
   useEffect(() => {
     setLoggedUser(localStorage.getItem('loggedInUser'));
   }, []);
 
-  //  Fetch rooms
+  // ✅ Fetch rooms
   useEffect(() => {
     const fetchRooms = async () => {
       try {
@@ -37,33 +38,45 @@ function Home({ likedRooms, setLikedRooms }) {
     }
   }, [API_URL]);
 
-  // Filter rooms based on location
+  // ✅ Filter rooms
   const filteredRooms = rooms.filter((room) =>
     room.location?.toLowerCase().includes(searchRooms.toLowerCase()),
   );
 
-  //  Logout
-  const logOut = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('loggedInUser');
-    handleSuccess('User Logged out!');
-    setTimeout(() => {
-      navigate('/login');
-    }, 1000);
+  // ✅ REAL logout (cookie-based)
+  const logOut = async () => {
+    try {
+      await fetch(`${API_URL}/auth/logout`, {
+        method: 'POST',
+        credentials: 'include', // 🔥 IMPORTANT
+      });
+
+      localStorage.removeItem('loggedInUser');
+
+      handleSuccess('User Logged out!');
+
+      setTimeout(() => {
+        navigate('/login');
+      }, 1000);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
     <div>
-      {/* Navbar with search */}
+      {/* Navbar */}
       <Navbar
         searchTerm={searchRooms}
         setSearchTerm={setSearchRooms}
+        logOut={logOut} // 🔥 pass logout if needed
+        user={loggedUser}
       />
 
-      {/* Hero Section */}
+      {/* Hero */}
       <HeroSection />
 
-      {/* Cards Section */}
+      {/* Cards */}
       <CardItem
         rooms={filteredRooms}
         likedRooms={likedRooms}

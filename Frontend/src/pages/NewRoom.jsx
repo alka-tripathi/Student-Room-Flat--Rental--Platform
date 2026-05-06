@@ -3,6 +3,8 @@ import '../style/newRoom.css';
 import { useNavigate } from 'react-router-dom';
 
 function NewForm() {
+  const API_URL = import.meta.env.VITE_API_URL;
+
   const [formInfo, setFormInfo] = useState({
     title: '',
     location: '',
@@ -30,7 +32,6 @@ function NewForm() {
     setFormInfo((prev) => {
       const allImages = [...prev.images, ...newImages];
 
-      // remove duplicates
       const uniqueImages = allImages.filter(
         (file, index, self) =>
           index === self.findIndex((f) => f.name === file.name),
@@ -47,35 +48,16 @@ function NewForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!formInfo.title.trim()) {
-      alert('Title is required');
-      return;
-    }
-
-    if (formInfo.title.trim().length < 5) {
-      alert('Title must be at least 5 characters');
-      return;
-    }
-
-    if (!formInfo.location.trim()) {
-      alert('Location is required');
-      return;
-    }
-
-    if (!formInfo.price || formInfo.price <= 0) {
-      alert('Enter valid price');
-      return;
-    }
-
-    if (!formInfo.contactNumber.match(/^[6-9]\d{9}$/)) {
-      alert('Enter valid contact number');
-      return;
-    }
-
-    if (formInfo.images.length === 0) {
-      alert('Please upload at least one image');
-      return;
-    }
+    if (!formInfo.title.trim()) return alert('Title is required');
+    if (formInfo.title.trim().length < 5)
+      return alert('Title must be at least 5 characters');
+    if (!formInfo.location.trim()) return alert('Location is required');
+    if (!formInfo.price || formInfo.price <= 0)
+      return alert('Enter valid price');
+    if (!formInfo.contactNumber.match(/^[6-9]\d{9}$/))
+      return alert('Enter valid contact number');
+    if (formInfo.images.length === 0)
+      return alert('Please upload at least one image');
 
     const formData = new FormData();
     formData.append('title', formInfo.title);
@@ -89,10 +71,15 @@ function NewForm() {
     });
 
     try {
-      const res = await fetch('http://localhost:8000/room/addroom', {
+      const res = await fetch(`${API_URL}/room/addroom`, {
         method: 'POST',
+        credentials: 'include', // 🔥 VERY IMPORTANT
         body: formData,
       });
+
+      if (!res.ok) {
+        throw new Error('Failed to add room');
+      }
 
       const data = await res.json();
       console.log(data);
@@ -121,7 +108,6 @@ function NewForm() {
         <h1>Add Your Room</h1>
 
         <form onSubmit={handleSubmit}>
-          {/* Title */}
           <div>
             <label>Title:</label>
             <input
@@ -134,7 +120,6 @@ function NewForm() {
             />
           </div>
 
-          {/* Location */}
           <div>
             <label>Location:</label>
             <input
@@ -142,11 +127,10 @@ function NewForm() {
               name="location"
               value={formInfo.location}
               onChange={handleChange}
-              placeholder="e.g. Naini, Prayagraj, Uttar Pradesh"
+              placeholder="e.g. Naini, Prayagraj"
             />
           </div>
 
-          {/* Price */}
           <div>
             <label>Price (₹):</label>
             <input
@@ -158,18 +142,16 @@ function NewForm() {
             />
           </div>
 
-          {/* Description */}
           <div>
             <label>Description:</label>
             <textarea
               name="description"
               value={formInfo.description}
               onChange={handleChange}
-              placeholder="e.g. Fully furnished room with bed, fan, attached bathroom, WiFi available"
+              placeholder="Room details..."
             ></textarea>
           </div>
 
-          {/* Contact */}
           <div>
             <label>Contact Number:</label>
             <input
@@ -177,11 +159,10 @@ function NewForm() {
               name="contactNumber"
               value={formInfo.contactNumber}
               onChange={handleChange}
-              placeholder="e.g. 9876543210"
+              placeholder="9876543210"
             />
           </div>
 
-          {/* Images */}
           <div>
             <label>Upload Images:</label>
             <input

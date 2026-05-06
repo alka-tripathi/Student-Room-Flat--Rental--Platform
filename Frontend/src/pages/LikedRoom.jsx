@@ -5,32 +5,25 @@ import '../style/likedRooms.css';
 import '../style/card.css';
 
 function LikedRooms() {
-   const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+  const API_URL = import.meta.env.VITE_API_URL;
+
   const [likedRooms, setLikedRooms] = useState([]);
 
-  const user = JSON.parse(localStorage.getItem('user'));
-  const token = user?.jwtTokens;
-
   useEffect(() => {
-    if (!token) return;
-
     const fetchLikedRooms = async () => {
       try {
         const res = await fetch(`${API_URL}/room/liked_rooms`, {
           method: 'GET',
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          credentials: 'include', // 🔥 VERY IMPORTANT
         });
 
         if (res.status === 401) {
           toast.error('Session expired, please login again');
-          localStorage.removeItem('user');
           return;
         }
 
         const data = await res.json();
-        setLikedRooms(data.rooms);
+        setLikedRooms(data.rooms || []);
       } catch (err) {
         console.log(err);
         toast.error('Failed to load liked rooms');
@@ -38,7 +31,7 @@ function LikedRooms() {
     };
 
     fetchLikedRooms();
-  }, [token]);
+  }, [API_URL]);
 
   // Remove card instantly after unlike
   const handleRemove = (id) => {
@@ -58,7 +51,7 @@ function LikedRooms() {
             <Cards
               key={room._id}
               room={room}
-              onUnlike={handleRemove} //  important
+              onUnlike={handleRemove}
             />
           ))}
         </div>

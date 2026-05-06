@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
+
 import SignupPage from './pages/signup';
 import Home from './pages/Home.jsx';
-import './App.css';
 import Login from './pages/login';
 import NewRoom from './pages/NewRoom.jsx';
 import LikedRoom from './pages/LikedRoom.jsx';
@@ -10,23 +10,25 @@ import RoomDetails from './pages/RoomDetails.jsx';
 import AboutPage from './pages/AboutPage.jsx';
 import Footer from './components/Footer';
 
-import { useLocation } from 'react-router-dom';
+import './App.css';
 
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
+  const API_URL = import.meta.env.VITE_API_URL;
+
   const [likedRooms, setLikedRooms] = useState([]);
   const [rooms, setRooms] = useState([]);
 
   const location = useLocation();
-
   const hideFooterRoutes = ['/login', '/signup'];
 
+  // ✅ Fetch all rooms (no auth needed)
   useEffect(() => {
     const fetchRooms = async () => {
       try {
-        const res = await fetch('http://localhost:8000/room/getrooms');
+        const res = await fetch(`${API_URL}/room/getrooms`);
         const data = await res.json();
         setRooms(data);
       } catch (err) {
@@ -35,18 +37,15 @@ function App() {
     };
 
     fetchRooms();
-  }, []);
+  }, [API_URL]);
 
+  // ✅ Fetch liked rooms (requires auth → cookie)
   useEffect(() => {
     const fetchLikedRooms = async () => {
-      const token = localStorage.getItem('token');
-      if (!token) return;
-
       try {
-        const response = await fetch('http://localhost:8000/room/liked_rooms', {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+        const response = await fetch(`${API_URL}/room/liked_rooms`, {
+          method: 'GET',
+          credentials: 'include', // 🔥 IMPORTANT
         });
 
         if (response.ok) {
@@ -59,7 +58,7 @@ function App() {
     };
 
     fetchLikedRooms();
-  }, []);
+  }, [API_URL]);
 
   return (
     <div className="app-container">
@@ -78,11 +77,11 @@ function App() {
             />
           }
         />
+
         <Route
           path="/about"
           element={<AboutPage />}
         />
-
         <Route
           path="/signup"
           element={<SignupPage />}
@@ -112,15 +111,14 @@ function App() {
 
       {!hideFooterRoutes.includes(location.pathname) && <Footer />}
 
-      {/* add toast here once */}
       <ToastContainer
         position="top-right"
         autoClose={2000}
-        newestOnTop={true}
+        newestOnTop
         closeOnClick
         pauseOnHover
         draggable
-        hideProgressBar={true}
+        hideProgressBar
         theme="light"
       />
     </div>

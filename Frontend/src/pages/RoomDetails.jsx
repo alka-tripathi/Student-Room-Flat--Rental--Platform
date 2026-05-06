@@ -3,7 +3,8 @@ import { useEffect, useState } from 'react';
 import '../style/roomdetails.css';
 
 function RoomDetails() {
-   const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+  const API_URL = import.meta.env.VITE_API_URL;
+
   const { id } = useParams();
   const [room, setRoom] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -16,14 +17,14 @@ function RoomDetails() {
         const data = await res.json();
 
         setRoom(data);
-        setIsBooked(!data.available); //  correct place
+        setIsBooked(!data.available);
       } catch (err) {
         console.error(err);
       }
     };
 
     fetchRoom();
-  }, [id]);
+  }, [id, API_URL]);
 
   if (!room) return <p>Loading...</p>;
 
@@ -34,13 +35,18 @@ function RoomDetails() {
         headers: {
           'Content-Type': 'application/json',
         },
+        credentials: 'include', // 🔥 IMPORTANT for auth
         body: JSON.stringify({ available: false }),
       });
 
+      if (!res.ok) {
+        throw new Error('Booking failed');
+      }
+
       const data = await res.json();
 
-      setRoom(data); //  update UI
-      setIsBooked(true); //  disable button
+      setRoom(data);
+      setIsBooked(true);
 
       alert('Room booked successfully!');
     } catch (error) {
@@ -65,7 +71,7 @@ function RoomDetails() {
         📍 {room.location} • {room.category || 'Room'}
       </p>
 
-      {/*  Image Slider */}
+      {/* Image Slider */}
       <div className="slider">
         <button
           className="slider-btn left"
@@ -110,7 +116,7 @@ function RoomDetails() {
         <p className="room-contact">📞 {room.contactNumber}</p>
       </div>
 
-      {/*  Booking Button */}
+      {/* Booking Button */}
       <div className="booking-section">
         <button
           onClick={handleBooking}
