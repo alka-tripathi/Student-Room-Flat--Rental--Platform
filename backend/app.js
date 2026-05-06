@@ -4,9 +4,14 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 
+const cookieParser = require('cookie-parser');
+
+app.use(cookieParser());
+
 const AuthRouter = require('./Routes/AuthRouter');
 const RoomRouter = require('./Routes/RoomRoutes');
 require('./Models/db');
+app.set('trust proxy', 1);
 
 const { v2: cloudinary } = require('cloudinary');
 
@@ -19,23 +24,6 @@ cloudinary.config({
 
 // ✅ CORS setup
 const allowedOrigins = [process.env.FRONTEND_URL, 'http://localhost:5173'];
-
-// app.use(
-//   cors({
-//     origin: function (origin, callback) {
-//       console.log('CORS Origin:', origin); // Debugging log
-//       if (!origin || allowedOrigins.includes(origin)) {
-//         callback(null, true);
-//       } else {
-//         callback(new Error('Not allowed by CORS'));
-//       }
-//     },
-//     credentials: true,
-//   }),
-// );
-
-
-
 
 app.use(
   cors({

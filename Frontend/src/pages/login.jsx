@@ -8,7 +8,6 @@ import '../style/loginPage.css';
 import { handleError, handleSuccess } from '../utils';
 
 function Login() {
-  // ❌ REMOVE localhost fallback
   const API_URL = import.meta.env.VITE_API_URL;
 
   const [loginInfo, setLoginInfo] = useState({
@@ -35,7 +34,6 @@ function Login() {
       return handleError('All fields are required!');
     }
 
-    // ✅ Safety check (important)
     if (!API_URL) {
       return handleError('API URL not configured!');
     }
@@ -46,26 +44,23 @@ function Login() {
         headers: {
           'Content-Type': 'application/json',
         },
-        // ✅ If using cookies (optional but safe)
-        credentials: 'include',
+        credentials: 'include', // 🔥 REQUIRED for cookies
         body: JSON.stringify(loginInfo),
       });
 
+      if (!response.ok) {
+        throw new Error('Server error');
+      }
+
       const result = await response.json();
 
-      const { success, message, jwtTokens, name, error } = result;
+      const { success, message, user, error } = result;
 
       if (success) {
         handleSuccess(message);
 
-        localStorage.setItem(
-          'user',
-          JSON.stringify({
-            jwtTokens,
-            id: result._id,
-            name,
-          }),
-        );
+        // ✅ store only user name (for UI)
+        localStorage.setItem('loggedInUser', user.name);
 
         setTimeout(() => {
           navigate('/home');

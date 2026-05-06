@@ -7,10 +7,20 @@ function ProfileDropDown() {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    localStorage.removeItem('jwtTokens');
-    localStorage.removeItem('loggedInUser');
-    navigate('/login');
+  const handleLogout = async () => {
+    try {
+      await fetch(`${import.meta.env.VITE_API_URL}/auth/logout`, {
+        method: 'POST',
+        credentials: 'include', // 🔥 IMPORTANT for cookies
+      });
+
+      // Optional: clear UI state
+      localStorage.removeItem('loggedInUser');
+
+      navigate('/login');
+    } catch (err) {
+      console.error('Logout failed', err);
+    }
   };
 
   return (
