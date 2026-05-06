@@ -34,14 +34,12 @@ const allowedOrigins = [process.env.FRONTEND_URL, 'http://localhost:5173'];
 //   }),
 // );
 
-const allowedOrigins = [
-  'http://localhost:5173',
-  'https://rentalco-gwwb.onrender.com',
-];
+
+
 
 app.use(
   cors({
-    origin: allowedOrigins,
+    origin: 'https://rentalco-gwwb.onrender.com', // ✅ your frontend
     credentials: true,
   }),
 );

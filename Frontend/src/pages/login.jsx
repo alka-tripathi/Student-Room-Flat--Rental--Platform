@@ -8,70 +8,82 @@ import '../style/loginPage.css';
 import { handleError, handleSuccess } from '../utils';
 
 function Login() {
-  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+  // ❌ REMOVE localhost fallback
+  const API_URL = import.meta.env.VITE_API_URL;
+
   const [loginInfo, setLoginInfo] = useState({
     email: '',
     password: '',
   });
+
   const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    console.log(name, value);
-    const copyInfo = { ...loginInfo };
-    copyInfo[name] = value;
-    setLoginInfo(copyInfo);
+    setLoginInfo({
+      ...loginInfo,
+      [name]: value,
+    });
   };
+
   const handleLogin = async (e) => {
     e.preventDefault();
+
     const { email, password } = loginInfo;
 
     if (!email || !password) {
-      return handleError('All Field is required !!');
+      return handleError('All fields are required!');
     }
+
+    // ✅ Safety check (important)
+    if (!API_URL) {
+      return handleError('API URL not configured!');
+    }
+
     try {
-      const url = `${API_URL}/auth/login`; //Ye backend server ka URL hai.
-      const response = await fetch(url, {
+      const response = await fetch(`${API_URL}/auth/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
+        // ✅ If using cookies (optional but safe)
+        credentials: 'include',
         body: JSON.stringify(loginInfo),
       });
+
       const result = await response.json();
+
       const { success, message, jwtTokens, name, error } = result;
+
       if (success) {
         handleSuccess(message);
-        // localStorage.setItem('Jwttoken', token);
-        // localStorage.setItem('loggedInUser', name);
+
         localStorage.setItem(
           'user',
           JSON.stringify({
-            jwtTokens: jwtTokens, // FIXED
-            id: result._id, //  IMPORTANT
-            name: name,
+            jwtTokens,
+            id: result._id,
+            name,
           }),
         );
+
         setTimeout(() => {
           navigate('/home');
         }, 1000);
       } else if (error?.details?.length > 0) {
-        const details = error.details[0];
-        handleError(details);
-      } else if (!success) {
+        handleError(error.details[0].message);
+      } else {
         handleError(message);
       }
-      console.log(result);
     } catch (err) {
-      handleError(err.message || 'Signup failed');
+      handleError(err.message || 'Login failed');
     }
-    console.log(JSON.parse(localStorage.getItem('user')));
-    //console.log(user);
   };
 
   return (
     <div className="login-page">
       <div className="login-logo">Rental.co</div>
+
       <div className="left-section">
         <img
           src="https://i.pinimg.com/1200x/2e/76/b7/2e76b7b352e21747439a3a0d6bec272c.jpg"
@@ -82,6 +94,7 @@ function Login() {
       <div className="right-section">
         <div className="container">
           <h1 style={{ color: '#0D3B66' }}>Login</h1>
+
           <form onSubmit={handleLogin}>
             <div>
               <label>Email</label>
@@ -122,7 +135,7 @@ function Login() {
           <ToastContainer
             position="top-right"
             autoClose={2000}
-            hideProgressBar={true}
+            hideProgressBar
             theme="colored"
           />
         </div>
