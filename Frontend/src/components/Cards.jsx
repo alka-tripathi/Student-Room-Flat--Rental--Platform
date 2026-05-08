@@ -10,53 +10,43 @@ function Cards({ room }) {
 
   const API_URL = import.meta.env.VITE_API_URL;
 
-  const user = JSON.parse(localStorage.getItem('user'));
+  const [liked, setLiked] = useState(false);
 
-  const [liked, setLiked] = useState(
-    user && room.likes?.some((id) => id.toString() === user.id),
-  );
+  const handleLike = async (e) => {
+    e.stopPropagation(); // 🔥 VERY IMPORTANT
 
-  const handleLike = async () => {
     try {
-      // ✅ check login
-      if (!user) {
-        toast.error('Please login first');
-        return;
-      }
-
       let res;
 
-      // ✅ LIKE ROOM
       if (!liked) {
         res = await fetch(`${API_URL}/room/like/${room._id}`, {
           method: 'POST',
-          credentials: 'include', // 🔥 IMPORTANT
+          credentials: 'include', // ✅ COOKIE
         });
+
+        if (res.status === 401) {
+          toast.error('Please login first');
+          return;
+        }
 
         toast.success('Added to liked ❤️');
-      }
-
-      // ✅ UNLIKE ROOM
-      else {
+      } else {
         res = await fetch(`${API_URL}/room/unlike/${room._id}`, {
           method: 'DELETE',
-          credentials: 'include', // 🔥 IMPORTANT
+          credentials: 'include', // ✅ COOKIE
         });
+
+        if (res.status === 401) {
+          toast.error('Please login first');
+          return;
+        }
 
         toast.info('Removed from liked 💔');
       }
 
-      // ✅ Unauthorized
-      if (res.status === 401) {
-        toast.error('Please login again');
-        return;
-      }
-
       const data = await res.json();
 
-      const updatedLikes = data.room.likes;
-
-      setLiked(updatedLikes.some((id) => id.toString() === user?.id));
+      setLiked(!liked);
     } catch (err) {
       console.log(err);
       toast.error('Something went wrong');
@@ -84,8 +74,11 @@ function Cards({ room }) {
       </div>
 
       <h2>{room.title}</h2>
+
       <p>📍 {room.location}</p>
+
       <p>₹ {room.price}</p>
+
       <p>{room.description}</p>
 
       <div className="card-bottom">

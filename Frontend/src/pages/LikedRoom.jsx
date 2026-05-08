@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import Cards from '../components/Cards';
+
 import '../style/likedRooms.css';
 import '../style/card.css';
 
@@ -14,18 +15,26 @@ function LikedRooms() {
       try {
         const res = await fetch(`${API_URL}/room/liked_rooms`, {
           method: 'GET',
-          credentials: 'include', // 🔥 VERY IMPORTANT
+          credentials: 'include', // ✅ cookie auth
         });
 
+        // ✅ user not logged in
         if (res.status === 401) {
-          toast.error('Session expired, please login again');
+          toast.error('Please login again');
+
+          localStorage.removeItem('user');
+
           return;
         }
 
         const data = await res.json();
-        setLikedRooms(data.rooms || []);
+
+        if (data.success) {
+          setLikedRooms(data.rooms || []);
+        }
       } catch (err) {
         console.log(err);
+
         toast.error('Failed to load liked rooms');
       }
     };
@@ -33,9 +42,10 @@ function LikedRooms() {
     fetchLikedRooms();
   }, [API_URL]);
 
-  // Remove card instantly after unlike
+  // ✅ Remove instantly from UI after unlike
   const handleRemove = (id) => {
     setLikedRooms((prev) => prev.filter((room) => room._id !== id));
+
     toast.info('Removed from liked 💔');
   };
 
