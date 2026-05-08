@@ -16,7 +16,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
-  const API_URL = import.meta.env.VITE_API_URL;
+  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 
   const [likedRooms, setLikedRooms] = useState([]);
   const [rooms, setRooms] = useState([]);
@@ -43,13 +43,13 @@ function App() {
   useEffect(() => {
     const fetchLikedRooms = async () => {
       try {
-        const response = await fetch(`${API_URL}/room/liked_rooms`, {
+        const res = await fetch(`${API_URL}/room/liked_rooms`, {
           method: 'GET',
-          credentials: 'include', // 🔥 IMPORTANT
+          credentials: 'include',
         });
 
-        if (response.ok) {
-          const data = await response.json();
+        if (res.ok) {
+          const data = await res.json();
           setLikedRooms(data);
         }
       } catch (error) {
