@@ -75,7 +75,7 @@
 }
 
 /* Star icon */
-.star-icon {
+/* .star-icon {
   color: gray;
   font-size: 24px;
   cursor: pointer;
@@ -88,6 +88,28 @@
 
 .star-icon:hover {
   transform: scale(1.2);
+} */
+ /* Star icon */
+.star-icon {
+  color: gray;
+  font-size: 24px;
+  cursor: pointer;
+  transition: 0.2s;
+
+  position: relative;
+  z-index: 100;
+}
+
+.star-icon.liked {
+  color: gold;
+}
+
+.star-icon:hover {
+  transform: scale(1.2);
+}
+
+.card-img-container {
+  position: relative;
 }
 
 /* 📱 Mobile */
