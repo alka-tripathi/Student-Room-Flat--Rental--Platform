@@ -16,7 +16,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
-  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+  const API_URL = import.meta.env.VITE_API_URL;
 
   const [likedRooms, setLikedRooms] = useState([]);
   const [rooms, setRooms] = useState([]);

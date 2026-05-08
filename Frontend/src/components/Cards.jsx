@@ -7,10 +7,10 @@ import { toast } from 'react-toastify';
 
 function Cards({ room }) {
   const navigate = useNavigate();
-  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+
+  const API_URL = import.meta.env.VITE_API_URL;
 
   const user = JSON.parse(localStorage.getItem('user'));
-  const token = user?.jwtTokens;
 
   const [liked, setLiked] = useState(
     user && room.likes?.some((id) => id.toString() === user.id),
@@ -18,48 +18,58 @@ function Cards({ room }) {
 
   const handleLike = async () => {
     try {
-      if (!token) {
-        alert('Please login first');
+      // ✅ check login
+      if (!user) {
+        toast.error('Please login first');
         return;
       }
 
       let res;
 
+      // ✅ LIKE ROOM
       if (!liked) {
         res = await fetch(`${API_URL}/room/like/${room._id}`, {
           method: 'POST',
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          credentials: 'include', // 🔥 IMPORTANT
         });
+
         toast.success('Added to liked ❤️');
-      } else {
+      }
+
+      // ✅ UNLIKE ROOM
+      else {
         res = await fetch(`${API_URL}/room/unlike/${room._id}`, {
           method: 'DELETE',
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          credentials: 'include', // 🔥 IMPORTANT
         });
+
         toast.info('Removed from liked 💔');
       }
 
+      // ✅ Unauthorized
+      if (res.status === 401) {
+        toast.error('Please login again');
+        return;
+      }
+
       const data = await res.json();
+
       const updatedLikes = data.room.likes;
 
       setLiked(updatedLikes.some((id) => id.toString() === user?.id));
     } catch (err) {
       console.log(err);
+      toast.error('Something went wrong');
     }
   };
 
-  //  Navigate to details (optional block if booked)
   const showRoomDetails = () => {
     navigate(`/room/${room._id}`);
   };
 
   return (
     <div className="card">
-      {/* Image + Overlay */}
+      {/* Image */}
       <div
         className="card-img-container"
         onClick={showRoomDetails}

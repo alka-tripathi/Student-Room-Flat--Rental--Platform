@@ -48,74 +48,6 @@ const signup = async (req, res) => {
 };
 
 // LOGIN
-// const login = async (req, res) => {
-//   try {
-//     const { email, password } = req.body;
-//     const errorMsg = 'Invalid email or password';
-
-//     const user = await userModel.findOne({
-//       email: email.toLowerCase(),
-//     });
-
-//     if (!user) {
-//       return res.status(403).json({
-//         message: errorMsg,
-//         success: false,
-//       });
-//     }
-
-//     const isPassword = await bcrypt.compare(password, user.password);
-
-//     if (!isPassword) {
-//       return res.status(403).json({
-//         message: errorMsg,
-//         success: false,
-//       });
-//     }
-
-//     if (!process.env.JWT_SECRET) {
-//       throw new Error('JWT_SECRET not defined');
-//     }
-
-//     const jwtTokens = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-//       expiresIn: '24h',
-//     });
-
-//     // ✅ ADD THIS PART 👇
-//     const jwtTokens = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-//       expiresIn: '24h',
-//     });
-
-//     res.status(200).json({
-//       message: 'Login successful',
-//       success: true,
-//       jwtTokens, // ✅ send token to frontend
-//       user: {
-//         id: user._id,
-//         name: user.name,
-//         email: user.email,
-//       },
-//     });
-
-//     // ✅ RESPONSE
-//     res.status(200).json({
-//       message: 'Login successful',
-//       success: true,
-//       user: {
-//         id: user._id,
-//         name: user.name,
-//         email: user.email,
-//       },
-//       // ❌ no need to send jwtTokens now (optional)
-//     });
-//   } catch (error) {
-//     res.status(500).json({
-//       message: 'Internal server error',
-//       success: false,
-//     });
-//   }
-// };
-
 const login = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -140,28 +72,32 @@ const login = async (req, res) => {
       });
     }
 
+    // ✅ JWT TOKEN
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
       expiresIn: '1d',
     });
 
-    // ✅ COOKIE (FINAL)
+    // ✅ STORE TOKEN IN COOKIE
     res.cookie('token', token, {
       httpOnly: true,
-      secure: true, // 🔥 MUST for Render (HTTPS)
-      sameSite: 'None', // 🔥 MUST for cross-origin
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
       maxAge: 24 * 60 * 60 * 1000,
     });
 
+    // ✅ RESPONSE
     res.status(200).json({
       success: true,
       message: 'Login successful',
       user: {
         id: user._id,
         name: user.name,
+        email: user.email,
       },
     });
   } catch (error) {
     console.error(error);
+
     res.status(500).json({
       message: 'Internal server error',
       success: false,
