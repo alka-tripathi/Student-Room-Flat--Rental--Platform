@@ -28,8 +28,25 @@ cloudinary.config({
 const allowedOrigins = [
   'http://localhost:5173',
   'http://localhost:5174',
-  'https://rentalco-gwwb.onrender.com',
+  'https://rental-co.onrender.com',
 ];
+
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (!origin) return callback(null, true);
+
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+
+      console.log('Blocked origin:', origin);
+
+      return callback(new Error('Not allowed by CORS'));
+    },
+    credentials: true,
+  }),
+);
 
 // ✅ CORS MUST COME BEFORE ROUTES
 app.use(
