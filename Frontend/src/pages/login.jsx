@@ -9,6 +9,7 @@ import { handleError, handleSuccess } from '../utils';
 
 function Login() {
   const API_URL = import.meta.env.VITE_API_URL;
+  console.log('API_URL:', API_URL); // ✅ Debug log
 
   const [loginInfo, setLoginInfo] = useState({
     email: '',
@@ -59,8 +60,7 @@ function Login() {
       if (success) {
         handleSuccess(message);
 
-        // ✅ store only user name (for UI)
-        localStorage.setItem('loggedInUser', user.name);
+        localStorage.setItem('user', JSON.stringify(user));
 
         setTimeout(() => {
           navigate('/home');

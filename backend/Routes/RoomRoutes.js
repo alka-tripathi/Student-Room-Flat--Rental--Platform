@@ -23,9 +23,18 @@ router.post(
 );
 
 // ✅ GET ALL AVAILABLE ROOMS
+// router.get('/getrooms', async (req, res) => {
+//   try {
+//     const rooms = await Room.find({ available: true }).sort({ createdAt: -1 });
+
+//     res.json(rooms);
+//   } catch (err) {
+//     res.status(500).json({ error: err.message });
+//   }
+// });
 router.get('/getrooms', async (req, res) => {
   try {
-    const rooms = await Room.find({ available: true }).sort({ createdAt: -1 });
+    const rooms = await Room.find().sort({ createdAt: -1 });
 
     res.json(rooms);
   } catch (err) {
@@ -50,6 +59,40 @@ router.get('/liked_rooms', authMiddleware, async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
+
+router.get('/booked_rooms', authMiddleware, async (req, res) => {
+  try {
+    const userId = req.user.id;
+
+    const bookedRooms = await Room.find({
+      bookedBy: userId, // ✅ ONLY this user’s bookings
+    }).populate('bookedBy', 'name email');
+
+    res.json({
+      success: true,
+      rooms: bookedRooms,
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+//new -->
+// router.get('/booked_rooms', authMiddleware, async (req, res) => {
+//   try {
+//     const rooms = await Room.find({ available: false }).populate(
+//       'bookedBy',
+//       'name email',
+//     ); // 👈 THIS IS KEY
+
+//     res.json({
+//       success: true,
+//       rooms,
+//     });
+//   } catch (err) {
+//     res.status(500).json({ error: err.message });
+//   }
+// });
 
 // ✅ GET SINGLE ROOM
 router.get('/:id', async (req, res) => {
@@ -132,6 +175,29 @@ router.delete('/unlike/:roomId', authMiddleware, async (req, res) => {
 });
 
 // ✅ BOOK ROOM (PROTECTED 🔥)
+// router.put('/book/:id', authMiddleware, async (req, res) => {
+//   try {
+//     const room = await Room.findById(req.params.id);
+
+//     if (!room) {
+//       return res.status(404).json({ message: 'Room not found' });
+//     }
+
+//     if (!room.available) {
+//       return res.status(400).json({ message: 'Room already booked' });
+//     }
+
+//     room.available = false;
+//     await room.save();
+
+//     res.json(room);
+//   } catch (err) {
+//     res.status(500).json({ error: err.message });
+//   }
+// });
+
+//new parts--->
+
 router.put('/book/:id', authMiddleware, async (req, res) => {
   try {
     const room = await Room.findById(req.params.id);
@@ -145,9 +211,46 @@ router.put('/book/:id', authMiddleware, async (req, res) => {
     }
 
     room.available = false;
+
+    // ✅ IMPORTANT FIX
+    room.bookedBy = req.user.id;
+
     await room.save();
 
-    res.json(room);
+    res.json({
+      success: true,
+      message: 'Room booked successfully',
+      room,
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// ✅ UNBOOK ROOM
+router.put('/unbook/:id', authMiddleware, async (req, res) => {
+  try {
+    const room = await Room.findById(req.params.id);
+
+    if (!room) {
+      return res.status(404).json({ message: 'Room not found' });
+    }
+
+    // only owner or booked user can unbook (basic safety)
+    if (room.bookedBy?.toString() !== req.user.id) {
+      return res.status(403).json({ message: 'Not allowed' });
+    }
+
+    room.available = true;
+    room.bookedBy = null;
+
+    await room.save();
+
+    res.json({
+      success: true,
+      message: 'Room unbooked successfully',
+      room,
+    });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

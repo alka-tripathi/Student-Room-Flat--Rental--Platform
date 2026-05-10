@@ -46,7 +46,13 @@ const RoomSchema = new mongoose.Schema(
       type: Date,
       default: Date.now,
     },
+    bookedBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+      default: null,
+    },
   },
+
   { timestamps: true },
 );
 //const Room = mongoose.model('Room', RoomSchema);

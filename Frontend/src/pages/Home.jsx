@@ -27,7 +27,8 @@ function Home({ likedRooms, setLikedRooms }) {
       try {
         const res = await fetch(`${API_URL}/room/getrooms`);
         const data = await res.json();
-        setRooms(data);
+
+        setRooms(data || []); // ✅ FIXED
       } catch (err) {
         console.error(err);
       }

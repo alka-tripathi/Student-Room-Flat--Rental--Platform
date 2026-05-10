@@ -74,7 +74,10 @@
 }
 
 .nav-links a {
-  position: relative;
+  text-decoration: none;
+  color: #0D3B66;
+  display: flex;
+  align-items: center;
 }
 
 .nav-links a::after {
@@ -142,3 +145,26 @@
     width: 80%;
   }
 }
+
+
+.nav-icon-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  transition: 0.2s;
+  color: #0D3B66;
+  cursor: pointer;
+}
+
+.nav-icon-item svg {
+  font-size: 20px;
+}
+
+.nav-icon-item:hover {
+  background: #f2f2f2;
+}
+
+/*optional*/
+

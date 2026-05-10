@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import '../style/navbar.css';
 import ProfileDropDown from '../components/ProfileDropDown';
 import AddIcon from '@mui/icons-material/Add';
+import BookmarkIcon from '@mui/icons-material/Bookmark';
 
 function Navbar({ searchTerm, setSearchTerm }) {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -55,6 +56,17 @@ function Navbar({ searchTerm, setSearchTerm }) {
               onClick={() => setMenuOpen(false)}
             >
               About
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/booked_rooms"
+              onClick={() => setMenuOpen(false)}
+            >
+              <div className="nav-icon-item">
+                <BookmarkIcon />
+                <span>Booked</span>
+              </div>
             </NavLink>
           </li>
 

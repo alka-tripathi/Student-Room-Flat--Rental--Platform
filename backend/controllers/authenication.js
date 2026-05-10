@@ -1,10 +1,31 @@
+// res.cookie('token', token, {
+//   httpOnly: true,
+//   secure: process.env.NODE_ENV === 'production',
+//   sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
+//   maxAge: 24 * 60 * 60 * 1000,
+// });
 
+// res.cookie('token', token, {
+//   httpOnly: true,
+// production
+// secure: true,
+// sameSite: 'None',
+//   secure: false,
+//   sameSite: 'Lax',
+// });
 
-const token = createTokens(user);
-
-res.cookie('access-token', token, {
+res.cookie('token', token, {
   httpOnly: true,
-  secure: false, // true in production
+  secure: process.env.NODE_ENV === 'production',
+  sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
 });
 
-res.json({ success: true, token });
+return res.json({
+  success: true,
+  message: 'Login successful',
+  user: {
+    id: user._id,
+    name: user.name,
+    email: user.email,
+  },
+});

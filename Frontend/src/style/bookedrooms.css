@@ -1,0 +1,57 @@
+.liked-container {
+  min-height: 100vh;
+  padding: 40px 30px;
+  background: #f5f7fb;
+}
+
+.liked-container h1 {
+  text-align: center;
+  font-size: 42px;
+  margin-bottom: 40px;
+  color: #222;
+  font-weight: 700;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+  gap: 30px;
+  justify-content: center;
+}
+
+.cards-grid > div {
+  background: white;
+  border-radius: 18px;
+  padding: 15px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  transition: 0.3s ease;
+}
+
+.cards-grid > div:hover {
+  transform: translateY(-5px);
+}
+
+.cards-grid button {
+  width: 100%;
+  margin-top: 15px;
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  background: #ff3b30;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.cards-grid button:hover {
+  background: #e0281f;
+}
+
+.liked-container p {
+  text-align: center;
+  font-size: 20px;
+  color: #666;
+  margin-top: 50px;
+}

@@ -10,20 +10,18 @@ function LikedRooms() {
 
   const [likedRooms, setLikedRooms] = useState([]);
 
+  // ✅ FETCH LIKED ROOMS
   useEffect(() => {
     const fetchLikedRooms = async () => {
       try {
         const res = await fetch(`${API_URL}/room/liked_rooms`, {
           method: 'GET',
-          credentials: 'include', // ✅ cookie auth
+          credentials: 'include',
         });
 
-        // ✅ user not logged in
         if (res.status === 401) {
           toast.error('Please login again');
-
-          localStorage.removeItem('user');
-
+          setLikedRooms([]);
           return;
         }
 
@@ -34,19 +32,35 @@ function LikedRooms() {
         }
       } catch (err) {
         console.log(err);
-
-        toast.error('Failed to load liked rooms');
       }
     };
 
-    fetchLikedRooms();
+    if (API_URL) fetchLikedRooms();
   }, [API_URL]);
 
-  // ✅ Remove instantly from UI after unlike
-  const handleRemove = (id) => {
-    setLikedRooms((prev) => prev.filter((room) => room._id !== id));
+  // ✅ UNLIKE FUNCTION (REAL BACKEND CALL)
+  const handleRemove = async (roomId) => {
+    try {
+      const res = await fetch(`${API_URL}/room/unlike/${roomId}`, {
+        method: 'DELETE',
+        credentials: 'include',
+      });
 
-    toast.info('Removed from liked 💔');
+      const data = await res.json();
+
+      if (!res.ok) {
+        toast.error(data.message || 'Failed to unlike');
+        return;
+      }
+
+      // ✅ update UI after success
+      setLikedRooms((prev) => prev.filter((room) => room._id !== roomId));
+
+      toast.info('Removed from liked 💔');
+    } catch (err) {
+      console.log(err);
+      toast.error('Something went wrong');
+    }
   };
 
   return (
