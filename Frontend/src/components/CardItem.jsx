@@ -3,20 +3,6 @@ import Cards from './Cards';
 import '../style/cardItem.css';
 
 function CardItem({ rooms = [] }) {
-  // const [rooms, setRooms] = useState([]);
-
-  // useEffect(() => {
-  //   const fetchRooms = async () => {
-  //     try {
-  //       const res = await fetch('http://localhost:8000/room/getrooms');
-  //       const data = await res.json();
-  //       setRooms(data);
-  //     } catch (err) {
-  //       console.error(err);
-  //     }
-  //   };
-  //   fetchRooms();
-  // }, []);
 
   return (
     <div className="home">

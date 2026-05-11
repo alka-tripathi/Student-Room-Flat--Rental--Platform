@@ -9,7 +9,7 @@ import { handleError, handleSuccess } from '../utils';
 
 function Login() {
   const API_URL = import.meta.env.VITE_API_URL;
-  console.log('API_URL:', API_URL); // ✅ Debug log
+  console.log('API_URL:', API_URL); // Debug log to check if API_URL is loaded
 
   const [loginInfo, setLoginInfo] = useState({
     email: '',
@@ -45,7 +45,7 @@ function Login() {
         headers: {
           'Content-Type': 'application/json',
         },
-        credentials: 'include', // 🔥 REQUIRED for cookies
+        credentials: 'include', //  REQUIRED for cookies
         body: JSON.stringify(loginInfo),
       });
 

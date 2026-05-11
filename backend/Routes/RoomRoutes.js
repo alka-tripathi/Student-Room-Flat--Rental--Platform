@@ -7,13 +7,6 @@ const newRoomValidate = require('../middleware/newRoomValidator');
 const authMiddleware = require('../middleware/Auth');
 const newRoomController = require('../controllers/RoomController');
 
-// ✅ ADD ROOM (you can protect it if needed)
-// router.post(
-//   '/addroom',
-//   upload.array('images', 5),
-//   newRoomValidate,
-//   newRoomController,
-// );
 router.post(
   '/addroom',
   authMiddleware,
@@ -22,16 +15,6 @@ router.post(
   newRoomController,
 );
 
-// ✅ GET ALL AVAILABLE ROOMS
-// router.get('/getrooms', async (req, res) => {
-//   try {
-//     const rooms = await Room.find({ available: true }).sort({ createdAt: -1 });
-
-//     res.json(rooms);
-//   } catch (err) {
-//     res.status(500).json({ error: err.message });
-//   }
-// });
 router.get('/getrooms', async (req, res) => {
   try {
     const rooms = await Room.find().sort({ createdAt: -1 });
@@ -42,10 +25,10 @@ router.get('/getrooms', async (req, res) => {
   }
 });
 
-// ✅ GET LIKED ROOMS (FIXED)
+//  GET LIKED ROOMS 
 router.get('/liked_rooms', authMiddleware, async (req, res) => {
   try {
-    const userId = req.user.id; // 🔥 FIXED
+    const userId = req.user.id; 
 
     const likedRooms = await Room.find({
       likes: userId,
@@ -60,12 +43,13 @@ router.get('/liked_rooms', authMiddleware, async (req, res) => {
   }
 });
 
+//get all booked rooms of a user (only booked by that user)
 router.get('/booked_rooms', authMiddleware, async (req, res) => {
   try {
     const userId = req.user.id;
 
     const bookedRooms = await Room.find({
-      bookedBy: userId, // ✅ ONLY this user’s bookings
+      bookedBy: userId, //  ONLY this user’s bookings
     }).populate('bookedBy', 'name email');
 
     res.json({
@@ -77,24 +61,7 @@ router.get('/booked_rooms', authMiddleware, async (req, res) => {
   }
 });
 
-//new -->
-// router.get('/booked_rooms', authMiddleware, async (req, res) => {
-//   try {
-//     const rooms = await Room.find({ available: false }).populate(
-//       'bookedBy',
-//       'name email',
-//     ); // 👈 THIS IS KEY
-
-//     res.json({
-//       success: true,
-//       rooms,
-//     });
-//   } catch (err) {
-//     res.status(500).json({ error: err.message });
-//   }
-// });
-
-// ✅ GET SINGLE ROOM
+//find room by id
 router.get('/:id', async (req, res) => {
   try {
     const room = await Room.findById(req.params.id);
@@ -109,10 +76,10 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// ✅ LIKE ROOM (FIXED)
+//like a card only if it is not already liked by the user
 router.post('/like/:roomId', authMiddleware, async (req, res) => {
   try {
-    const userId = req.user.id.toString(); // 🔥 FIXED
+    const userId = req.user.id.toString(); 
 
     const room = await Room.findById(req.params.roomId);
 
@@ -133,11 +100,11 @@ router.post('/like/:roomId', authMiddleware, async (req, res) => {
   }
 });
 
-// ✅ UNLIKE ROOM (FIXED)
+//unlike a room liked by the user only if it is in liked list
 router.delete('/unlike/:roomId', authMiddleware, async (req, res) => {
   try {
     const { roomId } = req.params;
-    const userId = req.user.id.toString(); // 🔥 FIXED
+    const userId = req.user.id.toString(); 
 
     const room = await Room.findById(roomId);
 
@@ -174,29 +141,7 @@ router.delete('/unlike/:roomId', authMiddleware, async (req, res) => {
   }
 });
 
-// ✅ BOOK ROOM (PROTECTED 🔥)
-// router.put('/book/:id', authMiddleware, async (req, res) => {
-//   try {
-//     const room = await Room.findById(req.params.id);
-
-//     if (!room) {
-//       return res.status(404).json({ message: 'Room not found' });
-//     }
-
-//     if (!room.available) {
-//       return res.status(400).json({ message: 'Room already booked' });
-//     }
-
-//     room.available = false;
-//     await room.save();
-
-//     res.json(room);
-//   } catch (err) {
-//     res.status(500).json({ error: err.message });
-//   }
-// });
-
-//new parts--->
+//booked  a room is available and not booked by someone else
 
 router.put('/book/:id', authMiddleware, async (req, res) => {
   try {
@@ -212,7 +157,7 @@ router.put('/book/:id', authMiddleware, async (req, res) => {
 
     room.available = false;
 
-    // ✅ IMPORTANT FIX
+    
     room.bookedBy = req.user.id;
 
     await room.save();
@@ -227,7 +172,9 @@ router.put('/book/:id', authMiddleware, async (req, res) => {
   }
 });
 
-// ✅ UNBOOK ROOM
+
+
+//unbook route (only owner or booked user can unbook)
 router.put('/unbook/:id', authMiddleware, async (req, res) => {
   try {
     const room = await Room.findById(req.params.id);

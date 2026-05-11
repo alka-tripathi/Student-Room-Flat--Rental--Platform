@@ -72,12 +72,12 @@ const login = async (req, res) => {
       });
     }
 
-    // ✅ JWT TOKEN
+    // JWT TOKEN
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
       expiresIn: '1d',
     });
 
-    // ✅ STORE TOKEN IN COOKIE
+    //  STORE TOKEN IN COOKIE
     res.cookie('token', token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
@@ -85,7 +85,7 @@ const login = async (req, res) => {
       maxAge: 24 * 60 * 60 * 1000,
     });
 
-    // ✅ RESPONSE
+   
     res.status(200).json({
       success: true,
       message: 'Login successful',

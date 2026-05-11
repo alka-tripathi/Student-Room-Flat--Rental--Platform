@@ -17,10 +17,10 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
-  // ✅ API URL
+ 
   const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 
-  // ✅ States
+
   const [likedRooms, setLikedRooms] = useState([]);
   const [rooms, setRooms] = useState([]);
 
@@ -28,7 +28,7 @@ function App() {
 
   const hideFooterRoutes = ['/login', '/signup'];
 
-  // ✅ Fetch all rooms
+  //  Fetch all rooms
   useEffect(() => {
     const fetchRooms = async () => {
       try {
@@ -48,7 +48,7 @@ function App() {
     }
   }, [API_URL]);
 
-  // ✅ Fetch liked rooms
+  //  Fetch liked rooms
   useEffect(() => {
     const fetchLikedRooms = async () => {
       try {

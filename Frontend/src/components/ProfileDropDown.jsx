@@ -11,7 +11,7 @@ function ProfileDropDown() {
     try {
       await fetch(`${import.meta.env.VITE_API_URL}/auth/logout`, {
         method: 'POST',
-        credentials: 'include', // 🔥 IMPORTANT for cookies
+        credentials: 'include', //  IMPORTANT for cookies
       });
 
       // Optional: clear UI state

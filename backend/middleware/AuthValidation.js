@@ -20,7 +20,7 @@ const signupValidation = (req, res, next) => {
 };
 
 const loginValidation = (req, res, next) => {
-  //ye ye sab aayega user se
+  //ye  sab aayega user se
   const schema = Joi.object({
     email: Joi.string().email().required(),
     password: Joi.string().min(4).max(100).required(),

@@ -16,19 +16,19 @@ function Home({ likedRooms, setLikedRooms }) {
   const navigate = useNavigate();
   const API_URL = import.meta.env.VITE_API_URL;
 
-  // ✅ Get logged user (UI only)
+  //  Get logged user (UI only)
   useEffect(() => {
     setLoggedUser(localStorage.getItem('loggedInUser'));
   }, []);
 
-  // ✅ Fetch rooms
+
   useEffect(() => {
     const fetchRooms = async () => {
       try {
         const res = await fetch(`${API_URL}/room/getrooms`);
         const data = await res.json();
 
-        setRooms(data || []); // ✅ FIXED
+        setRooms(data || []); 
       } catch (err) {
         console.error(err);
       }
@@ -39,17 +39,17 @@ function Home({ likedRooms, setLikedRooms }) {
     }
   }, [API_URL]);
 
-  // ✅ Filter rooms
+  //  Filter rooms
   const filteredRooms = rooms.filter((room) =>
     room.location?.toLowerCase().includes(searchRooms.toLowerCase()),
   );
 
-  // ✅ REAL logout (cookie-based)
+  //  REAL logout (cookie-based)
   const logOut = async () => {
     try {
       await fetch(`${API_URL}/auth/logout`, {
         method: 'POST',
-        credentials: 'include', // 🔥 IMPORTANT
+        credentials: 'include', //  IMPORTANT
       });
 
       localStorage.removeItem('loggedInUser');
@@ -70,7 +70,7 @@ function Home({ likedRooms, setLikedRooms }) {
       <Navbar
         searchTerm={searchRooms}
         setSearchTerm={setSearchRooms}
-        logOut={logOut} // 🔥 pass logout if needed
+        logOut={logOut} //  pass logout if needed
         user={loggedUser}
       />
 

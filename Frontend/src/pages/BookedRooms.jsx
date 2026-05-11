@@ -37,7 +37,7 @@ function BookedRooms() {
     }
   }, [API_URL]);
 
-  // ✅ Unbook handler (clean & reusable)
+  //  Unbook handler (clean & reusable)
   const handleUnbook = async (roomId) => {
     try {
       const res = await fetch(`${API_URL}/room/unbook/${roomId}`, {
@@ -63,7 +63,7 @@ function BookedRooms() {
 
   return (
     <div className="liked-container">
-      <h1>My Booked Rooms 🏠</h1>
+      <h1>My Booked Rooms !</h1>
 
       {rooms.length === 0 ? (
         <p>No booked rooms yet</p>

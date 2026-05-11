@@ -6,7 +6,7 @@ import { handleError, handleSuccess } from '../utils';
 import 'react-toastify/dist/ReactToastify.css';
 
 function Signup() {
-  const API_URL = import.meta.env.VITE_API_URL; // ✅ removed localhost fallback
+  const API_URL = import.meta.env.VITE_API_URL; 
 
   const [signupInfo, setsignup] = useState({
     name: '',

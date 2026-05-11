@@ -2,6 +2,14 @@
   min-height: 100vh;
   padding: 40px 30px;
   background: #f5f7fb;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.h1{
+   text-align: center;
 }
 
 .liked-container h1 {
@@ -13,6 +21,7 @@
 }
 
 .cards-grid {
+  width: 100%;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
   gap: 30px;
@@ -53,5 +62,55 @@
   text-align: center;
   font-size: 20px;
   color: #666;
-  margin-top: 50px;
+}
+
+/* Empty state center */
+.liked-container:has(p) {
+  justify-content: center;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 768px) {
+  .liked-container {
+    padding: 30px 20px;
+  }
+
+  .liked-container h1 {
+    font-size: 32px;
+    margin-bottom: 30px;
+  }
+
+  .cards-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .liked-container p {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .liked-container {
+    padding: 20px 15px;
+  }
+
+  .liked-container h1 {
+    font-size: 26px;
+  }
+
+  .cards-grid > div {
+    padding: 12px;
+    border-radius: 14px;
+  }
+
+  .cards-grid button {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .liked-container p {
+    font-size: 16px;
+  }
 }

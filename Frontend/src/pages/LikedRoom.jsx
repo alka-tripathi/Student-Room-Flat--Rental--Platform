@@ -10,7 +10,7 @@ function LikedRooms() {
 
   const [likedRooms, setLikedRooms] = useState([]);
 
-  // ✅ FETCH LIKED ROOMS
+  //  FETCH LIKED ROOMS
   useEffect(() => {
     const fetchLikedRooms = async () => {
       try {
@@ -38,7 +38,7 @@ function LikedRooms() {
     if (API_URL) fetchLikedRooms();
   }, [API_URL]);
 
-  // ✅ UNLIKE FUNCTION (REAL BACKEND CALL)
+  //  UNLIKE FUNCTION (REAL BACKEND CALL)
   const handleRemove = async (roomId) => {
     try {
       const res = await fetch(`${API_URL}/room/unlike/${roomId}`, {
@@ -53,7 +53,7 @@ function LikedRooms() {
         return;
       }
 
-      // ✅ update UI after success
+      //  update UI after success
       setLikedRooms((prev) => prev.filter((room) => room._id !== roomId));
 
       toast.info('Removed from liked 💔');
