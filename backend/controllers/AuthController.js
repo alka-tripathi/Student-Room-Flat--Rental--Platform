@@ -78,10 +78,17 @@ const login = async (req, res) => {
     });
 
     //  STORE TOKEN IN COOKIE
+    // Vercel and the API are different sites, so the browser needs a secure
+    // cross-site cookie in production. Do not depend only on NODE_ENV because
+    // some hosting providers do not set it automatically.
+    const isProduction =
+      process.env.NODE_ENV === 'production' ||
+      process.env.FRONTEND_URL?.startsWith('https://');
+
     res.cookie('token', token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
+      secure: isProduction,
+      sameSite: isProduction ? 'none' : 'lax',
       maxAge: 24 * 60 * 60 * 1000,
     });
 

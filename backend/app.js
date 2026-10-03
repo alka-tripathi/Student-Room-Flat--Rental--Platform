@@ -24,37 +24,27 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-// ✅ Allowed Origins
-const allowedOrigins = [
+// Allow the deployed frontend configured in the hosting environment.
+// Windows accepts mismatched path casing and local origins, while the
+// production server/browser require exact module paths and exact CORS origins.
+const allowedOrigins = new Set([
   'http://localhost:5173',
   'http://localhost:5174',
   'https://rental-co.onrender.com',
-];
+  process.env.FRONTEND_URL,
+]
+  .filter(Boolean)
+  .map((origin) => origin.replace(/\/$/, '')));
+
+const isAllowedOrigin = (origin) =>
+  allowedOrigins.has(origin.replace(/\/$/, ''));
 
 app.use(
   cors({
     origin: function (origin, callback) {
       if (!origin) return callback(null, true);
 
-      if (allowedOrigins.includes(origin)) {
-        return callback(null, true);
-      }
-
-      console.log('Blocked origin:', origin);
-
-      return callback(new Error('Not allowed by CORS'));
-    },
-    credentials: true,
-  }),
-);
-
-// ✅ CORS MUST COME BEFORE ROUTES
-app.use(
-  cors({
-    origin: function (origin, callback) {
-      if (!origin) return callback(null, true);
-
-      if (allowedOrigins.includes(origin)) {
+      if (isAllowedOrigin(origin)) {
         return callback(null, true);
       }
 

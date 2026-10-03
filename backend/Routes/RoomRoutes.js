@@ -1,11 +1,11 @@
 const router = require('express').Router();
 
-const upload = require('../middleware/upload');
+const upload = require('../Middleware/upload');
 const Room = require('../Models/Room');
 
-const newRoomValidate = require('../middleware/newRoomValidator');
-const authMiddleware = require('../middleware/Auth');
-const newRoomController = require('../controllers/RoomController');
+const newRoomValidate = require('../Middleware/newRoomValidator');
+const authMiddleware = require('../Middleware/Auth');
+const newRoomController = require('../Controllers/RoomController');
 
 router.post(
   '/addroom',

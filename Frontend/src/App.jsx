@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 
-import SignupPage from './pages/signup';
+import SignupPage from './pages/Signup';
 import Home from './pages/Home.jsx';
-import Login from './pages/login';
+import Login from './pages/Login';
 import NewRoom from './pages/NewRoom.jsx';
 import LikedRoom from './pages/LikedRoom.jsx';
 import RoomDetails from './pages/RoomDetails.jsx';

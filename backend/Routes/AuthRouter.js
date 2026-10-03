@@ -1,8 +1,8 @@
-const { signup, login } = require('../controllers/AuthController');
+const { signup, login } = require('../Controllers/AuthController');
 const {
   signupValidation,
   loginValidation,
-} = require('../middleware/AuthValidation');
+} = require('../Middleware/AuthValidation');
 
 const router = require('express').Router();
 
@@ -11,10 +11,14 @@ router.post('/signup', signupValidation, signup);
 router.post('/login', loginValidation, login);
 
 router.post('/logout', (req, res) => {
+  const isProduction =
+    process.env.NODE_ENV === 'production' ||
+    process.env.FRONTEND_URL?.startsWith('https://');
+
   res.clearCookie('token', {
     httpOnly: true,
-    secure: true,
-    sameSite: 'None',
+    secure: isProduction,
+    sameSite: isProduction ? 'none' : 'lax',
   });
 
   res.json({ success: true, message: 'Logged out' });
